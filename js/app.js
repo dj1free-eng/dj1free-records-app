@@ -219,7 +219,11 @@ function renderTrack(data){
   $("#trackArtistLine").textContent = a?.name || "";
   $("#trackBlurb").textContent = t.blurb || "";
   setBg($("#trackCover"), t.cover);
+const btnSpotify = document.getElementById("btnSpotify");
+const btnYtMusic = document.getElementById("btnYtMusic");
 
+setExternalButtonState(btnSpotify, track.spotifyUrl, "spotify");
+setExternalButtonState(btnYtMusic, track.ytMusicUrl, "ytmusic");
   // Previews: SIEMPRE 30s (aunque el JSON tenga otro valor)
   const dur = PREVIEW_SECONDS;
   $("#timeLeft").textContent = fmtTime(dur);
