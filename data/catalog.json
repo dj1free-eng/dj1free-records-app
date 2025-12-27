@@ -1,540 +1,282 @@
 {
-  "labelName": "dJ1fRee Records",
-  "featured": {
-    "headline": "Nuevo lanzamiento",
-    "trackId": "t_dj1free_subelo"
-  },
+  "label": "dJ1fRee Records",
   "artists": [
     {
-      "id": "a_dj1free",
+      "id": "dj1free",
       "name": "dj1fRee",
-      "tagline": "Electronic / Producer",
-      "heroImage": "assets/artists/dj1free.jpg",
-      "bio": "Productor de dJ1fRee Records.",
-      "releases": [
+      "banner": "assets/artists/dj1free/banner.jpg",
+      "albums": [
         {
-          "id": "r_dj1free_subelo_single",
-          "type": "single",
-          "title": "Súbelo",
-          "year": 2025,
-          "cover": "assets/covers/dj1free/subelo.jpg",
-          "trackIds": ["t_dj1free_subelo"],
-          "meta": { "futureAlbum": true }
-        },
-        {
-          "id": "r_dj1free_santa_drops",
-          "type": "album",
-          "title": "Santa Drops the Bass",
-          "year": 2025,
-          "cover": "assets/covers/dj1free/santa-drops-the-bass.jpg",
-          "trackIds": [
-            "t_santa_01_deck_the_halls",
-            "t_santa_02_we_wish_you_a_merry_bass",
-            "t_santa_03_jingle_bells",
-            "t_santa_04_carol_of_the_bass",
-            "t_santa_05_joy_to_the_rave",
-            "t_santa_06_o_christmas_tree"
-          ]
-        },
-        {
-          "id": "r_dj1free_gym_wave",
-          "type": "album",
+          "id": "gymwave",
           "title": "GYM WAVE: The Ultimate Workout Anthems",
-          "year": 2025,
-          "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-          "trackIds": [
-            "t_gym_01_no_mercy",
-            "t_gym_02_born_to_fight",
-            "t_gym_03_do_it_right",
-            "t_gym_04_lift_me_up",
-            "t_gym_05_run_the_game",
-            "t_gym_06_pump_it",
-            "t_gym_07_run",
-            "t_gym_08_you_aint_down",
-            "t_gym_09_break_a_sweat"
+          "year": 2024,
+          "cover": "assets/albums/gymwave/cover.jpg",
+          "tracks": [
+            {
+              "id": "gym_01",
+              "title": "No Mercy",
+              "previewUrl": "assets/previews/gymwave/01-no-mercy.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/2aUDO5P8x19SfJBwphbEuR",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=7RZrbeajaXM"
+            },
+            {
+              "id": "gym_02",
+              "title": "Born to Fight",
+              "previewUrl": "assets/previews/gymwave/02-born-to-fight.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/5AyPZMVMDxyXT5VAWfPWV2",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=kIOjbDNsonc"
+            },
+            {
+              "id": "gym_03",
+              "title": "Do It Right",
+              "previewUrl": "assets/previews/gymwave/03-do-it-right.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/4bQH4Ec0i7gdhp2GlfPmox",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=Xt-8nn8puZw"
+            },
+            {
+              "id": "gym_04",
+              "title": "Lift Me Up",
+              "previewUrl": "assets/previews/gymwave/04-lift-me-up.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/0NuO9QwfMZDnQ4LBsw2qXR",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=GOgLzeJybeA"
+            },
+            {
+              "id": "gym_05",
+              "title": "Run the Game",
+              "previewUrl": "assets/previews/gymwave/05-run-the-game.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/6wEWmAZcQZDKUjn9MENEIQ",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=BCK1pI42518"
+            },
+            {
+              "id": "gym_06",
+              "title": "Pump It",
+              "previewUrl": "assets/previews/gymwave/06-pump-it.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/4TOAZ55ey8826llEgE6kP5",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=VRG-_mZuofY"
+            },
+            {
+              "id": "gym_07",
+              "title": "RUN",
+              "previewUrl": "assets/previews/gymwave/07-run.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/0TSPEGQI1ivEwMPufujfO0",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=k7hOh8oZ9JM"
+            },
+            {
+              "id": "gym_08",
+              "title": "You Ain’t Down",
+              "previewUrl": "assets/previews/gymwave/08-you-aint-down.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/53jf6v8zImDKrmFeQpg9JI",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=aNuPNfAy45k"
+            },
+            {
+              "id": "gym_09",
+              "title": "Break a Sweat",
+              "previewUrl": "assets/previews/gymwave/09-break-a-sweat.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/7N1hjJeLlvBIXVAShYVxMO",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=EdfmRgmsl6g"
+            }
           ]
         },
         {
-          "id": "r_dj1free_patricks_themes",
-          "type": "album",
+          "id": "santadrops",
+          "title": "Santa Drops the Bass",
+          "year": 2024,
+          "cover": "assets/albums/santadrops/cover.jpg",
+          "tracks": [
+            {
+              "id": "santa_01",
+              "title": "Deck the Halls",
+              "previewUrl": "assets/previews/santadrops/01-deck-the-halls.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/2PyLUtE1tXeaNk8ZLlxAVL",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=W08UR4Sf8eo"
+            },
+            {
+              "id": "santa_02",
+              "title": "We Wish You a Merry Bass",
+              "previewUrl": "assets/previews/santadrops/02-we-wish-you-a-merry-bass.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/4faJFaRjQPu1FDSxCdeFBm",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=PUHTHCR86do"
+            },
+            {
+              "id": "santa_03",
+              "title": "Jingle Bells",
+              "previewUrl": "assets/previews/santadrops/03-jingle-bells.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/4q9w5mJEkgsGvrQctRsxVr",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=zUnOB1nZYVE"
+            },
+            {
+              "id": "santa_04",
+              "title": "Carol of the Bass",
+              "previewUrl": "assets/previews/santadrops/04-carol-of-the-bass.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/6NTxrTXWPQ1oaU1ziJF795",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=GooBhUhb_yQ"
+            },
+            {
+              "id": "santa_05",
+              "title": "Joy to the Rave",
+              "previewUrl": "assets/previews/santadrops/05-joy-to-the-rave.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/7MO5uTwgJpIiDDkOnLAtFH",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=kTt0XexmdxU"
+            },
+            {
+              "id": "santa_06",
+              "title": "O Christmas Tree",
+              "previewUrl": "assets/previews/santadrops/06-o-christmas-tree.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/1TqDA4yQ373zVWAFEeRXs5",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=gddG15eaSy8"
+            }
+          ]
+        },
+        {
+          "id": "patrickthemes",
           "title": "Patrick’s Themes",
-          "year": 2025,
-          "cover": "assets/covers/dj1free/patricks-themes.jpg",
-          "trackIds": [
-            "t_pat_01_markalo_goes_to_the_disco",
-            "t_pat_02_dont_let_this_night_end",
-            "t_pat_03_inside_the_circuit",
-            "t_pat_04_ts_beat",
-            "t_pat_05_one_more_overtime",
-            "t_pat_06_great_little_challenge",
-            "t_pat_07_the_true_story_of_beelzebub",
-            "t_pat_08_humble_match"
+          "year": 2023,
+          "cover": "assets/albums/patrickthemes/cover.jpg",
+          "tracks": [
+            {
+              "id": "pt_01",
+              "title": "Markalo Goes to the Disco",
+              "previewUrl": "assets/previews/patrickthemes/01-markalo.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/28JE7KOork1NIbm2izgBuY",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=kuCjQFpTWXM"
+            },
+            {
+              "id": "pt_02",
+              "title": "Don’t Let This Night End",
+              "previewUrl": "assets/previews/patrickthemes/02-dont-let-this-night-end.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/5o2wPDyRPc0k6W9xddteoq",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=5VH-JnIki2Y"
+            },
+            {
+              "id": "pt_03",
+              "title": "Inside the Circuit",
+              "previewUrl": "assets/previews/patrickthemes/03-inside-the-circuit.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/7AAWgcO3GH9361nYgj1K6M",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=gksmBANzPuE"
+            },
+            {
+              "id": "pt_04",
+              "title": "TS-Beat",
+              "previewUrl": "assets/previews/patrickthemes/04-ts-beat.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/3SvZowbAAJlJ6JWlE0Vj52",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=8mtdu9E8lvc"
+            },
+            {
+              "id": "pt_05",
+              "title": "One More Overtime",
+              "previewUrl": "assets/previews/patrickthemes/05-one-more-overtime.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/3aprmsgacwmOKB7Z8GkVqi",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=kooxwfoY-W8"
+            },
+            {
+              "id": "pt_06",
+              "title": "Great Little Challenge",
+              "previewUrl": "assets/previews/patrickthemes/06-great-little-challenge.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/4eY6DqBCesZ2jX3hZYk4J5",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=4xVU_DPR7EQ"
+            },
+            {
+              "id": "pt_07",
+              "title": "The True Story of Beelzebub",
+              "previewUrl": "assets/previews/patrickthemes/07-beelzebub.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/62sufi0cSKjGZzTqfZbUfE",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=ZQEtSqumubM"
+            },
+            {
+              "id": "pt_08",
+              "title": "Humble Match",
+              "previewUrl": "assets/previews/patrickthemes/08-humble-match.mp3",
+              "durationSec": 30,
+              "spotifyUrl": "https://open.spotify.com/track/4TGnSxHmvj7y4cud1YMWnB",
+              "ytMusicUrl": "https://music.youtube.com/watch?v=uCztRWeaX-k"
+            }
           ]
         }
       ]
     },
     {
-      "id": "a_silice",
+      "id": "silice",
       "name": "SiLiCe",
-      "tagline": "Rap Futurista",
-      "heroImage": "assets/artists/silice.jpg",
-      "bio": "Rap futurista desde el ciberespacio.",
-      "releases": [
+      "banner": "assets/artists/silice/banner.jpg",
+      "singles": [
         {
-          "id": "r_silice_silicio_y_verso",
-          "type": "single",
+          "id": "silice_01",
           "title": "Silicio & Verso",
-          "year": 2025,
-          "cover": "assets/covers/silice/silicio-y-verso.jpg",
-          "trackIds": ["t_silice_silicio_y_verso"]
+          "previewUrl": "assets/previews/singles/silicio-verso.mp3",
+          "durationSec": 30,
+          "spotifyUrl": "https://open.spotify.com/track/5mY6NRFSdNfHIVbAPS4Rlk",
+          "ytMusicUrl": "https://music.youtube.com/watch?v=1S3CX79cedI"
         }
       ]
     },
     {
-      "id": "a_juan_del_muelle",
+      "id": "juandelmuelle",
       "name": "Juan del Muelle",
-      "tagline": "Bachata",
-      "heroImage": "assets/artists/juan-del-muelle.jpg",
-      "bio": "Bachata directa, historias sencillas.",
-      "releases": [
+      "banner": "assets/artists/juandelmuelle/banner.jpg",
+      "singles": [
         {
-          "id": "r_jdm_hoy_me_pesa_el_silencio",
-          "type": "single",
+          "id": "jdm_01",
           "title": "Hoy me pesa el silencio",
-          "year": 2025,
-          "cover": "assets/covers/juan-del-muelle/hoy-me-pesa-el-silencio.jpg",
-          "trackIds": ["t_jdm_hoy_me_pesa_el_silencio"]
+          "previewUrl": "assets/previews/singles/hoy-me-pesa-el-silencio.mp3",
+          "durationSec": 30,
+          "spotifyUrl": "https://open.spotify.com/track/5mY6NRFSdNfHIVbAPS4Rlk",
+          "ytMusicUrl": "https://music.youtube.com/watch?v=ktN_KRM0KmU"
         },
         {
-          "id": "r_jdm_entre_tus_pasos",
-          "type": "single",
+          "id": "jdm_02",
           "title": "Entre tus pasos",
-          "year": 2025,
-          "cover": "assets/covers/juan-del-muelle/entre-tus-pasos.jpg",
-          "trackIds": ["t_jdm_entre_tus_pasos"]
+          "previewUrl": "assets/previews/singles/entre-tus-pasos.mp3",
+          "durationSec": 30,
+          "spotifyUrl": "https://open.spotify.com/track/3YoTiHjbYzcR1nDWxjKADb",
+          "ytMusicUrl": "https://music.youtube.com/watch?v=G-r8m0Vw1Uo"
         },
         {
-          "id": "r_jdm_mientras_bailas_con_el",
-          "type": "single",
+          "id": "jdm_03",
           "title": "Mientras bailas con él",
-          "year": 2025,
-          "cover": "assets/covers/juan-del-muelle/mientras-bailas-con-el.jpg",
-          "trackIds": ["t_jdm_mientras_bailas_con_el"]
+          "previewUrl": "assets/previews/singles/mientras-bailas-con-el.mp3",
+          "durationSec": 30,
+          "spotifyUrl": "https://open.spotify.com/track/0dvSaxYUZWJbWA1N7FRbWb",
+          "ytMusicUrl": "https://music.youtube.com/watch?v=ugRznVWqvtw"
         },
         {
-          "id": "r_jdm_baila_conmigo",
-          "type": "single",
+          "id": "jdm_04",
           "title": "Baila conmigo",
-          "year": 2025,
-          "cover": "assets/covers/juan-del-muelle/baila-conmigo.jpg",
-          "trackIds": ["t_jdm_baila_conmigo"]
+          "previewUrl": "assets/previews/singles/baila-conmigo.mp3",
+          "durationSec": 30,
+          "spotifyUrl": "https://open.spotify.com/track/5hKY9ZdNNCVXaWvUPwE1Ih",
+          "ytMusicUrl": "https://music.youtube.com/watch?v=VZoTZ83Z_YQ"
         },
         {
-          "id": "r_jdm_baila_con_amor_la_bachata",
-          "type": "single",
+          "id": "jdm_05",
           "title": "Baila con Amor la Bachata",
-          "year": 2025,
-          "cover": "assets/covers/juan-del-muelle/baila-con-amor-la-bachata.jpg",
-          "trackIds": ["t_jdm_baila_con_amor_la_bachata"]
+          "previewUrl": "assets/previews/singles/baila-con-amor-la-bachata.mp3",
+          "durationSec": 30,
+          "spotifyUrl": "https://open.spotify.com/track/2vKZmkwZfTzjBAiDBf7cJv",
+          "ytMusicUrl": "https://music.youtube.com/watch?v=fZlZ6RFSRSQ"
         }
       ]
-    }
-  ],
-  "tracks": [
-    {
-      "id": "t_dj1free_subelo",
-      "title": "Súbelo",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_subelo_single",
-      "album": "Súbelo",
-      "cover": "assets/covers/dj1free/subelo.jpg",
-      "previewUrl": "assets/previews/dj1free/singles/subelo.mp3",
-      "durationSec": 30,
-      "spotifyUrl": "https://open.spotify.com/album/1D6SSGpIE1N9pPU6xEKJgG?si=oHDul3irRGSlkdtX12J1hg",
-      "ytMusicUrl": "https://music.youtube.com/playlist?list=OLAK5uy_lE87zOYXq8MFSA6r25Eb_A4RG1ycu-cL0&si=9gtZS6ptVUMB_Eq3",
-      "blurb": "Single. Pertenece a un álbum aún no creado."
-    },
-
-    {
-      "id": "t_santa_01_deck_the_halls",
-      "title": "Deck the Halls",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_santa_drops",
-      "album": "Santa Drops the Bass",
-      "cover": "assets/covers/dj1free/santa-drops-the-bass.jpg",
-      "previewUrl": "assets/previews/dj1free/santa-drops-the-bass/01-deck-the-halls.mp3",
-      "durationSec": 30,
-      "spotifyUrl": "https://open.spotify.com/track/2PyLUtE1tXeaNk8ZLlxAVL?si=bnof0WiuT32zgaGOUAbpZw",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_santa_02_we_wish_you_a_merry_bass",
-      "title": "We Wish You a Merry Bass",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_santa_drops",
-      "album": "Santa Drops the Bass",
-      "cover": "assets/covers/dj1free/santa-drops-the-bass.jpg",
-      "previewUrl": "assets/previews/dj1free/santa-drops-the-bass/02-we-wish-you-a-merry-bass.mp3",
-      "durationSec": 30,
-      "spotifyUrl": "https://open.spotify.com/track/4faJFaRjQPu1FDSxCdeFBm?si=m0iBMMJqThG0_dBPNqRWSg",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_santa_03_jingle_bells",
-      "title": "Jingle Bells",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_santa_drops",
-      "album": "Santa Drops the Bass",
-      "cover": "assets/covers/dj1free/santa-drops-the-bass.jpg",
-      "previewUrl": "assets/previews/dj1free/santa-drops-the-bass/03-jingle-bells.mp3",
-      "durationSec": 30,
-      "spotifyUrl": "https://open.spotify.com/track/4q9w5mJEkgsGvrQctRsxVr?si=3ClFpF0_QuO3ckVEAt3YDg",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_santa_04_carol_of_the_bass",
-      "title": "Carol of the Bass",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_santa_drops",
-      "album": "Santa Drops the Bass",
-      "cover": "assets/covers/dj1free/santa-drops-the-bass.jpg",
-      "previewUrl": "assets/previews/dj1free/santa-drops-the-bass/04-carol-of-the-bass.mp3",
-      "durationSec": 30,
-      "spotifyUrl": "https://open.spotify.com/track/6NTxrTXWPQ1oaU1ziJF795?si=n6ZBhIQpQMq0uqMEZbgjoQ",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_santa_05_joy_to_the_rave",
-      "title": "Joy to the Rave",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_santa_drops",
-      "album": "Santa Drops the Bass",
-      "cover": "assets/covers/dj1free/santa-drops-the-bass.jpg",
-      "previewUrl": "assets/previews/dj1free/santa-drops-the-bass/05-joy-to-the-rave.mp3",
-      "durationSec": 30,
-      "spotifyUrl": "https://open.spotify.com/track/7MO5uTwgJpIiDDkOnLAtFH?si=T49pn-G2SGujTU63st9nWA",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_santa_06_o_christmas_tree",
-      "title": "O Christmas Tree",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_santa_drops",
-      "album": "Santa Drops the Bass",
-      "cover": "assets/covers/dj1free/santa-drops-the-bass.jpg",
-      "previewUrl": "assets/previews/dj1free/santa-drops-the-bass/06-o-christmas-tree.mp3",
-      "durationSec": 30,
-      "spotifyUrl": "https://open.spotify.com/track/1TqDA4yQ373zVWAFEeRXs5?si=0R8bBE3GR0O7V-mteDIrtg",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-
-    {
-      "id": "t_gym_01_no_mercy",
-      "title": "No Mercy",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_gym_wave",
-      "album": "GYM WAVE: The Ultimate Workout Anthems",
-      "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-      "previewUrl": "assets/previews/dj1free/gym-wave-the-ultimate-workout-anthems/01-no-mercy.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_gym_02_born_to_fight",
-      "title": "Born to Fight",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_gym_wave",
-      "album": "GYM WAVE: The Ultimate Workout Anthems",
-      "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-      "previewUrl": "assets/previews/dj1free/gym-wave-the-ultimate-workout-anthems/02-born-to-fight.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_gym_03_do_it_right",
-      "title": "Do It Right",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_gym_wave",
-      "album": "GYM WAVE: The Ultimate Workout Anthems",
-      "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-      "previewUrl": "assets/previews/dj1free/gym-wave-the-ultimate-workout-anthems/03-do-it-right.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_gym_04_lift_me_up",
-      "title": "Lift Me Up",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_gym_wave",
-      "album": "GYM WAVE: The Ultimate Workout Anthems",
-      "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-      "previewUrl": "assets/previews/dj1free/gym-wave-the-ultimate-workout-anthems/04-lift-me-up.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_gym_05_run_the_game",
-      "title": "Run the Game",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_gym_wave",
-      "album": "GYM WAVE: The Ultimate Workout Anthems",
-      "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-      "previewUrl": "assets/previews/dj1free/gym-wave-the-ultimate-workout-anthems/05-run-the-game.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_gym_06_pump_it",
-      "title": "Pump It",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_gym_wave",
-      "album": "GYM WAVE: The Ultimate Workout Anthems",
-      "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-      "previewUrl": "assets/previews/dj1free/gym-wave-the-ultimate-workout-anthems/06-pump-it.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_gym_07_run",
-      "title": "RUN",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_gym_wave",
-      "album": "GYM WAVE: The Ultimate Workout Anthems",
-      "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-      "previewUrl": "assets/previews/dj1free/gym-wave-the-ultimate-workout-anthems/07-run.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_gym_08_you_aint_down",
-      "title": "You Ain’t Down",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_gym_wave",
-      "album": "GYM WAVE: The Ultimate Workout Anthems",
-      "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-      "previewUrl": "assets/previews/dj1free/gym-wave-the-ultimate-workout-anthems/08-you-aint-down.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_gym_09_break_a_sweat",
-      "title": "Break a Sweat",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_gym_wave",
-      "album": "GYM WAVE: The Ultimate Workout Anthems",
-      "cover": "assets/covers/dj1free/gym-wave-the-ultimate-workout-anthems.jpg",
-      "previewUrl": "assets/previews/dj1free/gym-wave-the-ultimate-workout-anthems/09-break-a-sweat.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-
-    {
-      "id": "t_pat_01_markalo_goes_to_the_disco",
-      "title": "Markalo Goes to the Disco",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_patricks_themes",
-      "album": "Patrick’s Themes",
-      "cover": "assets/covers/dj1free/patricks-themes.jpg",
-      "previewUrl": "assets/previews/dj1free/patricks-themes/01-markalo-goes-to-the-disco.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_pat_02_dont_let_this_night_end",
-      "title": "Don’t Let This Night End",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_patricks_themes",
-      "album": "Patrick’s Themes",
-      "cover": "assets/covers/dj1free/patricks-themes.jpg",
-      "previewUrl": "assets/previews/dj1free/patricks-themes/02-dont-let-this-night-end.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_pat_03_inside_the_circuit",
-      "title": "Inside the Circuit",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_patricks_themes",
-      "album": "Patrick’s Themes",
-      "cover": "assets/covers/dj1free/patricks-themes.jpg",
-      "previewUrl": "assets/previews/dj1free/patricks-themes/03-inside-the-circuit.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_pat_04_ts_beat",
-      "title": "TS-Beat",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_patricks_themes",
-      "album": "Patrick’s Themes",
-      "cover": "assets/covers/dj1free/patricks-themes.jpg",
-      "previewUrl": "assets/previews/dj1free/patricks-themes/04-ts-beat.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_pat_05_one_more_overtime",
-      "title": "One More Overtime",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_patricks_themes",
-      "album": "Patrick’s Themes",
-      "cover": "assets/covers/dj1free/patricks-themes.jpg",
-      "previewUrl": "assets/previews/dj1free/patricks-themes/05-one-more-overtime.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_pat_06_great_little_challenge",
-      "title": "Great Little Challenge",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_patricks_themes",
-      "album": "Patrick’s Themes",
-      "cover": "assets/covers/dj1free/patricks-themes.jpg",
-      "previewUrl": "assets/previews/dj1free/patricks-themes/06-great-little-challenge.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_pat_07_the_true_story_of_beelzebub",
-      "title": "The True Story of Beelzebub",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_patricks_themes",
-      "album": "Patrick’s Themes",
-      "cover": "assets/covers/dj1free/patricks-themes.jpg",
-      "previewUrl": "assets/previews/dj1free/patricks-themes/07-the-true-story-of-beelzebub.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_pat_08_humble_match",
-      "title": "Humble Match",
-      "artistId": "a_dj1free",
-      "releaseId": "r_dj1free_patricks_themes",
-      "album": "Patrick’s Themes",
-      "cover": "assets/covers/dj1free/patricks-themes.jpg",
-      "previewUrl": "assets/previews/dj1free/patricks-themes/08-humble-match.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-
-    {
-      "id": "t_silice_silicio_y_verso",
-      "title": "Silicio & Verso",
-      "artistId": "a_silice",
-      "releaseId": "r_silice_silicio_y_verso",
-      "album": "Silicio & Verso",
-      "cover": "assets/covers/silice/silicio-y-verso.jpg",
-      "previewUrl": "assets/previews/silice/singles/silicio-y-verso.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-
-    {
-      "id": "t_jdm_hoy_me_pesa_el_silencio",
-      "title": "Hoy me pesa el silencio",
-      "artistId": "a_juan_del_muelle",
-      "releaseId": "r_jdm_hoy_me_pesa_el_silencio",
-      "album": "Hoy me pesa el silencio",
-      "cover": "assets/covers/juan-del-muelle/hoy-me-pesa-el-silencio.jpg",
-      "previewUrl": "assets/previews/juan-del-muelle/singles/hoy-me-pesa-el-silencio.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_jdm_entre_tus_pasos",
-      "title": "Entre tus pasos",
-      "artistId": "a_juan_del_muelle",
-      "releaseId": "r_jdm_entre_tus_pasos",
-      "album": "Entre tus pasos",
-      "cover": "assets/covers/juan-del-muelle/entre-tus-pasos.jpg",
-      "previewUrl": "assets/previews/juan-del-muelle/singles/entre-tus-pasos.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_jdm_mientras_bailas_con_el",
-      "title": "Mientras bailas con él",
-      "artistId": "a_juan_del_muelle",
-      "releaseId": "r_jdm_mientras_bailas_con_el",
-      "album": "Mientras bailas con él",
-      "cover": "assets/covers/juan-del-muelle/mientras-bailas-con-el.jpg",
-      "previewUrl": "assets/previews/juan-del-muelle/singles/mientras-bailas-con-el.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_jdm_baila_conmigo",
-      "title": "Baila conmigo",
-      "artistId": "a_juan_del_muelle",
-      "releaseId": "r_jdm_baila_conmigo",
-      "album": "Baila conmigo",
-      "cover": "assets/covers/juan-del-muelle/baila-conmigo.jpg",
-      "previewUrl": "assets/previews/juan-del-muelle/singles/baila-conmigo.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
-    },
-    {
-      "id": "t_jdm_baila_con_amor_la_bachata",
-      "title": "Baila con Amor la Bachata",
-      "artistId": "a_juan_del_muelle",
-      "releaseId": "r_jdm_baila_con_amor_la_bachata",
-      "album": "Baila con Amor la Bachata",
-      "cover": "assets/covers/juan-del-muelle/baila-con-amor-la-bachata.jpg",
-      "previewUrl": "assets/previews/juan-del-muelle/singles/baila-con-amor-la-bachata.mp3",
-      "durationSec": 45,
-      "spotifyUrl": "",
-      "ytMusicUrl": "",
-      "blurb": ""
     }
   ]
 }
