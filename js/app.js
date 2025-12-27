@@ -249,7 +249,24 @@ function renderTrack(data){
     dot.style.left = `${pct}%`;
     $("#timeNow").textContent = fmtTime(cur);
   }
+function setExternalButtonState(btnEl, url, platform) {
+  const hasUrl = typeof url === "string" && url.trim() !== "";
 
+  // Limpieza total de estados previos
+  btnEl.classList.remove("is-available", "is-unavailable", "spotify", "ytmusic");
+
+  if (hasUrl) {
+    btnEl.classList.add("is-available", platform);
+    btnEl.href = url.trim();
+    btnEl.setAttribute("aria-disabled", "false");
+    btnEl.removeAttribute("tabindex");
+  } else {
+    btnEl.classList.add("is-unavailable");
+    btnEl.removeAttribute("href");
+    btnEl.setAttribute("aria-disabled", "true");
+    btnEl.setAttribute("tabindex", "-1");
+  }
+}
   const btnPlay = $("#btnPlay");
   btnPlay.addEventListener("click", async () => {
     if(!playing){
