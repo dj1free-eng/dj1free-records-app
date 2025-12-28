@@ -40,7 +40,8 @@ a{color:inherit; text-decoration:none}
 .iconbtn{
   width:38px;height:38px;border-radius:12px;
   border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+  box-shadow:0 10px 24px rgba(0,0,0,.35);
   display:grid; place-items:center;
   color:var(--text);
 }
