@@ -299,7 +299,11 @@ function renderArtist(data){
   setBg($("#artistHeroImg"), a.heroImage);
 
   // Orden por novedad
-  const releases = [...(a.releases || [])].sort((x,y) => (y.year||0)-(x.year||0) || (y.title||"").localeCompare(x.title||""));
+  const releases = [...(a.releases || [])].sort((x,y) =>
+  (y.year||0)-(x.year||0) ||
+  ((x.type === y.type) ? 0 : (x.type === "single" ? -1 : 1)) ||
+  (y.title||"").localeCompare(x.title||"")
+);
 
   const grid = $("#releaseGrid");
   grid.innerHTML = "";
