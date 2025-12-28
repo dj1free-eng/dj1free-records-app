@@ -20,17 +20,13 @@ async function loadData(){
 
 /* =========================
    NORMALIZADOR DE CATÁLOGO
-   - Acepta el JSON “anidado” (artists -> albums/singles -> tracks)
-   - Devuelve el formato que espera esta app (labelName, artists[].releases, tracks[] plano, featured)
    ========================= */
 function normalizeCatalog(raw){
-  // Si ya viene en formato “nuevo”, lo devolvemos tal cual
   if(raw && raw.labelName && Array.isArray(raw.tracks) && Array.isArray(raw.artists)) return raw;
 
   const labelName = raw.labelName || raw.label || "dJ1fRee Records";
   const artistsIn = Array.isArray(raw.artists) ? raw.artists : [];
 
-  // Helpers para carátulas y slugs
   const toSlug = (s) => String(s||"")
     .toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
@@ -40,15 +36,12 @@ function normalizeCatalog(raw){
     .replace(/^-+|-+$/g,"");
 
   const coverFallback = (artistId, title) => {
-    // Mapa de carpetas reales dentro de assets/covers
     const coverArtistFolder =
       artistId === "juandelmuelle" ? "juan-del-muelle" :
       artistId;
     return `assets/covers/${coverArtistFolder}/${toSlug(title)}.jpg`;
   };
 
-  // Si el JSON trae rutas antiguas tipo assets/albums/... (que no existen en esta app),
-  // las convertimos a la ruta real de covers.
   const resolveCover = (maybeCover, artistId, title) => {
     const c = String(maybeCover || "").trim();
     if(!c) return coverFallback(artistId, title);
@@ -64,8 +57,6 @@ function normalizeCatalog(raw){
     const artistId = a.id;
     const artistName = a.name || artistId;
 
-    // Banners: en esta app los banners reales viven en assets/artists/<id>.jpg
-    // (o assets/artists/juan-del-muelle.jpg). Si el JSON trae /banner.jpg, lo corregimos.
     const bannerFallbackId = (artistId === "juandelmuelle") ? "juan-del-muelle" : artistId;
     const heroImage = a.heroImage || (
       (a.banner && !String(a.banner).includes("/banner."))
@@ -75,7 +66,6 @@ function normalizeCatalog(raw){
 
     const releases = [];
 
-    // ALBUMS
     const albums = Array.isArray(a.albums) ? a.albums : Array.isArray(a.releases) ? a.releases : [];
     for(const alb of albums){
       const relId = alb.id;
@@ -113,7 +103,6 @@ function normalizeCatalog(raw){
       releasesGlobal.push({ ...rel, artistId, artistName, artistHero: heroImage });
     }
 
-    // SINGLES
     const singles = Array.isArray(a.singles) ? a.singles : [];
     for(const s of singles){
       const relTitle = s.title || s.id;
@@ -161,7 +150,6 @@ function normalizeCatalog(raw){
     });
   }
 
-  // Featured: el primer tema del release más reciente
   releasesGlobal.sort((x,y) => (y.year||0)-(x.year||0) || (y.title||"").localeCompare(x.title||""));
   const featuredTrackId = releasesGlobal[0]?.trackIds?.[0] || tracks[0]?.id || "";
   const featured = {
@@ -173,12 +161,11 @@ function normalizeCatalog(raw){
 }
 
 /* =========================
-   BOTONES EXTERNOS (FIX)
+   BOTONES EXTERNOS
    ========================= */
 function setExternalButtonState(btnEl, url, platform) {
   const hasUrl = typeof url === "string" && url.trim() !== "";
 
-  // Limpieza total
   btnEl.classList.remove("is-available", "is-unavailable", "spotify", "ytmusic");
 
   if (hasUrl) {
@@ -208,13 +195,11 @@ function allReleasesSortedByRecency(data){
       });
     }
   }
-  // Orden por novedad: year desc, y si empatan, por title desc (estable simple)
   out.sort((x,y) => (y.year||0)-(x.year||0) || (y.title||"").localeCompare(x.title||""));
   return out;
 }
 
 function allTracksSortedByRecency(data){
-  // Usamos el orden de releases por novedad y dentro el orden del tracklist
   const releases = allReleasesSortedByRecency(data);
   const result = [];
   for(const r of releases){
@@ -322,7 +307,6 @@ function renderArtist(data){
   $("#artistBio").textContent = a.bio || "";
   setBg($("#artistHeroImg"), a.heroImage);
 
-  // Orden por novedad
   const releases = [...(a.releases || [])].sort((x,y) => (y.year||0)-(x.year||0) || (y.title||"").localeCompare(x.title||""));
 
   const grid = $("#releaseGrid");
@@ -399,15 +383,11 @@ function renderTrack(data){
   $("#trackBlurb").textContent = t.blurb || "";
   setBg($("#trackCover"), t.cover);
 
-  // ====== BOTONES EXTERNOS (AQUÍ ESTABA EL FALLO) ======
   const btnSpotify = document.getElementById("btnSpotify");
   const btnYtMusic = document.getElementById("btnYtMusic");
-
   setExternalButtonState(btnSpotify, t.spotifyUrl, "spotify");
   setExternalButtonState(btnYtMusic, t.ytMusicUrl, "ytmusic");
-  // ====================================================
 
-  // Previews: SIEMPRE 30s
   const dur = PREVIEW_SECONDS;
   $("#timeLeft").textContent = fmtTime(dur);
   $("#timeNow").textContent = "0:00";
@@ -419,14 +399,12 @@ function renderTrack(data){
 
   const fill = $("#seekFill");
   const dot = $("#seekDot");
-  const btnPlay = $("#btnPlay");
+  const btnPlay = $("#btnPlay"); // ✅ SOLO UNA VEZ
 
-  // Estado inicial del botón (con SVG)
   btnPlay.classList.remove("is-pause");
   btnPlay.classList.add("is-play");
 
   function syncPlayBtn(){
-    // Con tu HTML nuevo: .is-pause muestra pause, .is-play muestra play
     if(playing){
       btnPlay.classList.remove("is-play");
       btnPlay.classList.add("is-pause");
@@ -435,7 +413,8 @@ function renderTrack(data){
       btnPlay.classList.add("is-play");
     }
   }
-    function clampTime(){
+
+  function clampTime(){
     if(audio.currentTime > dur){
       audio.pause();
       audio.currentTime = dur;
@@ -452,17 +431,14 @@ function renderTrack(data){
     $("#timeNow").textContent = fmtTime(cur);
   }
 
-  const btnPlay = $("#btnPlay");
-    btnPlay.addEventListener("click", async () => {
+  btnPlay.addEventListener("click", async () => {
     if(!playing){
       try{
         if((audio.currentTime||0) >= dur) audio.currentTime = 0;
         await audio.play();
         playing = true;
         syncPlayBtn();
-      }catch{
-        // iOS: requiere gesto, ya lo hay
-      }
+      }catch{}
     }else{
       audio.pause();
       playing = false;
@@ -488,9 +464,14 @@ function renderTrack(data){
   });
 
   audio.addEventListener("timeupdate", () => { clampTime(); updateUI(); });
-    audio.addEventListener("ended", () => {
+  audio.addEventListener("ended", () => {
     playing = false;
     syncPlayBtn();
+  });
+
+  // Recomendado: cortar audio al salir
+  window.addEventListener("pagehide", () => {
+    try { audio.pause(); } catch {}
   });
 }
 
