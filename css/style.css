@@ -325,3 +325,108 @@ a{color:inherit; text-decoration:none}
 .extBtn.is-available:active {
   transform: scale(0.985);
 }
+/* ===== CONTROLES (clavados a la imagen) ===== */
+.controlsV2{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  margin:14px 0 16px;
+}
+
+.ctrlBtnV2{
+  width:56px;
+  height:56px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 10px 26px rgba(0,0,0,.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.ctrlBtnV2 svg{
+  width:26px;
+  height:26px;
+  fill:#fff;
+  opacity:.95;
+}
+
+.ctrlMainV2{
+  width:78px;
+  height:78px;
+  background: rgba(255,255,255,.12);
+}
+
+.ctrlMainV2 svg{
+  width:30px;
+  height:30px;
+}
+
+.ctrlMainV2 .icoPause{ display:none; }
+.ctrlMainV2.is-pause .icoPlay{ display:none; }
+.ctrlMainV2.is-pause .icoPause{ display:block; }
+
+/* ===== BOTONES SPOTIFY / YT (como la imagen) ===== */
+.extBtnsV2{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:10px;
+}
+
+.extBtnV2{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 18px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 12px 30px rgba(0,0,0,.50);
+  text-decoration:none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.extIcon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.12);
+}
+
+.extIcon svg{
+  width:22px;
+  height:22px;
+  fill:#fff;
+}
+
+.extText{
+  color:#fff;
+  font-weight:900;      /* BOLD */
+  letter-spacing:.2px;
+}
+
+.extLead{
+  font-weight:900;
+  color:#fff;
+}
+
+.brand{ font-weight:900; }
+.brandSpotify{ color:#1DB954; }
+.brandYT{ color:#FF2D2D; }
+
+/* No disponible */
+.extBtnV2.is-unavailable{
+  opacity:.35;
+  filter: grayscale(1);
+  pointer-events:none;
+}
