@@ -38,6 +38,8 @@ a{color:inherit; text-decoration:none}
 .brand{letter-spacing:.12em; font-weight:800; font-size:14px}
 .topActions{display:flex; gap:10px}
 .iconbtn{
+  font-size:18px;
+  line-height:1;
   width:38px;height:38px;border-radius:12px;
   border:1px solid var(--line);
   background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
@@ -146,6 +148,8 @@ a{color:inherit; text-decoration:none}
 
 .back{display:flex; align-items:center; gap:10px; font-weight:800}
 .backArrow{
+  font-size:18px;
+  line-height:1;
   width:36px;height:36px;border-radius:12px;
   border:1px solid var(--line);
   background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
@@ -262,6 +266,8 @@ a{color:inherit; text-decoration:none}
 .trackName{font-weight:950; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .trackRight{display:flex; align-items:center; gap:10px}
 .trackPlay{
+  font-size:18px;
+  line-height:1;
   width:36px;height:36px;border-radius:12px;
   border:1px solid var(--line);
   background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
@@ -339,6 +345,8 @@ a{color:inherit; text-decoration:none}
 }
 
 .ctrlBtn{
+  font-size:20px;
+  line-height:1;
   width:44px;height:44px;border-radius:999px;
   border:1px solid var(--line);
   background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
