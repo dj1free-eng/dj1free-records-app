@@ -20,8 +20,12 @@ async function loadData(){
 
 /* =========================
    NORMALIZADOR DE CATÁLOGO
+   - Acepta el JSON anidado (artists -> albums/singles -> tracks)
+   - Devuelve el formato que espera esta app:
+     { labelName, featured, artists:[{id,name,heroImage,releases:[]}], tracks:[...] }
    ========================= */
 function normalizeCatalog(raw){
+  // Si ya viene “plano”, no tocamos nada
   if(raw && raw.labelName && Array.isArray(raw.tracks) && Array.isArray(raw.artists)) return raw;
 
   const labelName = raw.labelName || raw.label || "dJ1fRee Records";
@@ -35,17 +39,25 @@ function normalizeCatalog(raw){
     .replace(/[^a-z0-9]+/g,"-")
     .replace(/^-+|-+$/g,"");
 
+  // Rutas reales en esta app
+  const bannerFallback = (artistId) => {
+    const id = (artistId === "juandelmuelle") ? "juan-del-muelle" : artistId;
+    return `assets/artists/${id}.jpg`;
+  };
+
   const coverFallback = (artistId, title) => {
-    const coverArtistFolder =
-      artistId === "juandelmuelle" ? "juan-del-muelle" :
-      artistId;
-    return `assets/covers/${coverArtistFolder}/${toSlug(title)}.jpg`;
+    const folder = (artistId === "juandelmuelle") ? "juan-del-muelle" : artistId;
+    return `assets/covers/${folder}/${toSlug(title)}.jpg`;
   };
 
   const resolveCover = (maybeCover, artistId, title) => {
     const c = String(maybeCover || "").trim();
     if(!c) return coverFallback(artistId, title);
+
+    // Si apunta a rutas del JSON que NO existen en esta app (assets/albums/...), las convertimos.
     if(c.includes("assets/albums/")) return coverFallback(artistId, title);
+
+    // Si ya es assets/covers/... o cualquier otra ruta válida del proyecto, la respetamos.
     return c;
   };
 
@@ -57,16 +69,12 @@ function normalizeCatalog(raw){
     const artistId = a.id;
     const artistName = a.name || artistId;
 
-    const bannerFallbackId = (artistId === "juandelmuelle") ? "juan-del-muelle" : artistId;
-    const heroImage = a.heroImage || (
-      (a.banner && !String(a.banner).includes("/banner."))
-        ? a.banner
-        : `assets/artists/${bannerFallbackId}.jpg`
-    );
+    const heroImage = a.heroImage || a.banner || bannerFallback(artistId);
 
     const releases = [];
 
-    const albums = Array.isArray(a.albums) ? a.albums : Array.isArray(a.releases) ? a.releases : [];
+    // ALBUMS
+    const albums = Array.isArray(a.albums) ? a.albums : [];
     for(const alb of albums){
       const relId = alb.id;
       const relTitle = alb.title || relId;
@@ -91,41 +99,21 @@ function normalizeCatalog(raw){
         });
       }
 
-      const rel = {
-        id: relId,
-        type: "album",
-        title: relTitle,
-        year: relYear,
-        cover: relCover,
-        trackIds
-      };
+      const rel = { id: relId, type: "album", title: relTitle, year: relYear, cover: relCover, trackIds };
       releases.push(rel);
       releasesGlobal.push({ ...rel, artistId, artistName, artistHero: heroImage });
     }
 
+    // SINGLES (en tu JSON vienen como tracks sueltos)
     const singles = Array.isArray(a.singles) ? a.singles : [];
     for(const s of singles){
       const relTitle = s.title || s.id;
       const relYear = s.year || 0;
       const relCover = resolveCover(s.cover, artistId, relTitle);
 
-      releases.push({
-        id: s.id,
-        type: "single",
-        title: relTitle,
-        year: relYear,
-        cover: relCover,
-        trackIds: [s.id]
-      });
-      releasesGlobal.push({
-        id: s.id,
-        type: "single",
-        title: relTitle,
-        year: relYear,
-        cover: relCover,
-        trackIds: [s.id],
-        artistId, artistName, artistHero: heroImage
-      });
+      const rel = { id: s.id, type: "single", title: relTitle, year: relYear, cover: relCover, trackIds: [s.id] };
+      releases.push(rel);
+      releasesGlobal.push({ ...rel, artistId, artistName, artistHero: heroImage });
 
       tracks.push({
         id: s.id,
@@ -150,22 +138,21 @@ function normalizeCatalog(raw){
     });
   }
 
+  // Featured: primer tema del release más “reciente”
   releasesGlobal.sort((x,y) => (y.year||0)-(x.year||0) || (y.title||"").localeCompare(x.title||""));
   const featuredTrackId = releasesGlobal[0]?.trackIds?.[0] || tracks[0]?.id || "";
-  const featured = {
-    headline: raw.featured?.headline || "Nuevo lanzamiento",
-    trackId: featuredTrackId
-  };
+  const featured = { headline: raw.featured?.headline || "Nuevo lanzamiento", trackId: featuredTrackId };
 
   return { labelName, featured, artists: normArtists, tracks };
 }
 
 /* =========================
-   BOTONES EXTERNOS
+   BOTONES EXTERNOS (FIX)
    ========================= */
 function setExternalButtonState(btnEl, url, platform) {
   const hasUrl = typeof url === "string" && url.trim() !== "";
 
+  // Limpieza total
   btnEl.classList.remove("is-available", "is-unavailable", "spotify", "ytmusic");
 
   if (hasUrl) {
@@ -195,11 +182,13 @@ function allReleasesSortedByRecency(data){
       });
     }
   }
+  // Orden por novedad: year desc, y si empatan, por title desc (estable simple)
   out.sort((x,y) => (y.year||0)-(x.year||0) || (y.title||"").localeCompare(x.title||""));
   return out;
 }
 
 function allTracksSortedByRecency(data){
+  // Usamos el orden de releases por novedad y dentro el orden del tracklist
   const releases = allReleasesSortedByRecency(data);
   const result = [];
   for(const r of releases){
@@ -307,6 +296,7 @@ function renderArtist(data){
   $("#artistBio").textContent = a.bio || "";
   setBg($("#artistHeroImg"), a.heroImage);
 
+  // Orden por novedad
   const releases = [...(a.releases || [])].sort((x,y) => (y.year||0)-(x.year||0) || (y.title||"").localeCompare(x.title||""));
 
   const grid = $("#releaseGrid");
@@ -383,11 +373,15 @@ function renderTrack(data){
   $("#trackBlurb").textContent = t.blurb || "";
   setBg($("#trackCover"), t.cover);
 
+  // ====== BOTONES EXTERNOS (AQUÍ ESTABA EL FALLO) ======
   const btnSpotify = document.getElementById("btnSpotify");
   const btnYtMusic = document.getElementById("btnYtMusic");
+
   setExternalButtonState(btnSpotify, t.spotifyUrl, "spotify");
   setExternalButtonState(btnYtMusic, t.ytMusicUrl, "ytmusic");
+  // ====================================================
 
+  // Previews: SIEMPRE 30s
   const dur = PREVIEW_SECONDS;
   $("#timeLeft").textContent = fmtTime(dur);
   $("#timeNow").textContent = "0:00";
@@ -399,27 +393,13 @@ function renderTrack(data){
 
   const fill = $("#seekFill");
   const dot = $("#seekDot");
-  const btnPlay = $("#btnPlay"); // ✅ SOLO UNA VEZ
-
-  btnPlay.classList.remove("is-pause");
-  btnPlay.classList.add("is-play");
-
-  function syncPlayBtn(){
-    if(playing){
-      btnPlay.classList.remove("is-play");
-      btnPlay.classList.add("is-pause");
-    }else{
-      btnPlay.classList.remove("is-pause");
-      btnPlay.classList.add("is-play");
-    }
-  }
 
   function clampTime(){
     if(audio.currentTime > dur){
       audio.pause();
       audio.currentTime = dur;
       playing = false;
-      syncPlayBtn();
+      $("#btnPlay").textContent = "▶";
     }
   }
 
@@ -431,18 +411,21 @@ function renderTrack(data){
     $("#timeNow").textContent = fmtTime(cur);
   }
 
+  const btnPlay = $("#btnPlay");
   btnPlay.addEventListener("click", async () => {
     if(!playing){
       try{
         if((audio.currentTime||0) >= dur) audio.currentTime = 0;
         await audio.play();
         playing = true;
-        syncPlayBtn();
-      }catch{}
+        btnPlay.textContent = "❚❚";
+      }catch{
+        // iOS: requiere gesto, ya lo hay
+      }
     }else{
       audio.pause();
       playing = false;
-      syncPlayBtn();
+      btnPlay.textContent = "▶";
     }
   });
 
@@ -464,18 +447,10 @@ function renderTrack(data){
   });
 
   audio.addEventListener("timeupdate", () => { clampTime(); updateUI(); });
-  audio.addEventListener("ended", () => {
-    playing = false;
-    syncPlayBtn();
-  });
-
-  // Recomendado: cortar audio al salir
-  window.addEventListener("pagehide", () => {
-    try { audio.pause(); } catch {}
-  });
+  audio.addEventListener("ended", () => { playing = false; btnPlay.textContent = "▶"; });
 }
 
 init().catch(err => {
   console.error(err);
-  alert("Error cargando la app. Revisa catalog.json y rutas de archivos.\n\nDetalle: " + (err?.message || err));
+  alert("Error cargando la app. Revisa data/catalog.json y rutas de archivos.");
 });
