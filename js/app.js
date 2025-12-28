@@ -419,13 +419,28 @@ function renderTrack(data){
 
   const fill = $("#seekFill");
   const dot = $("#seekDot");
+  const btnPlay = $("#btnPlay");
 
-  function clampTime(){
+  // Estado inicial del botón (con SVG)
+  btnPlay.classList.remove("is-pause");
+  btnPlay.classList.add("is-play");
+
+  function syncPlayBtn(){
+    // Con tu HTML nuevo: .is-pause muestra pause, .is-play muestra play
+    if(playing){
+      btnPlay.classList.remove("is-play");
+      btnPlay.classList.add("is-pause");
+    }else{
+      btnPlay.classList.remove("is-pause");
+      btnPlay.classList.add("is-play");
+    }
+  }
+    function clampTime(){
     if(audio.currentTime > dur){
       audio.pause();
       audio.currentTime = dur;
       playing = false;
-      $("#btnPlay").textContent = "▶";
+      syncPlayBtn();
     }
   }
 
@@ -438,20 +453,20 @@ function renderTrack(data){
   }
 
   const btnPlay = $("#btnPlay");
-  btnPlay.addEventListener("click", async () => {
+    btnPlay.addEventListener("click", async () => {
     if(!playing){
       try{
         if((audio.currentTime||0) >= dur) audio.currentTime = 0;
         await audio.play();
         playing = true;
-        btnPlay.textContent = "❚❚";
+        syncPlayBtn();
       }catch{
         // iOS: requiere gesto, ya lo hay
       }
     }else{
       audio.pause();
       playing = false;
-      btnPlay.textContent = "▶";
+      syncPlayBtn();
     }
   });
 
@@ -473,7 +488,10 @@ function renderTrack(data){
   });
 
   audio.addEventListener("timeupdate", () => { clampTime(); updateUI(); });
-  audio.addEventListener("ended", () => { playing = false; btnPlay.textContent = "▶"; });
+    audio.addEventListener("ended", () => {
+    playing = false;
+    syncPlayBtn();
+  });
 }
 
 init().catch(err => {
