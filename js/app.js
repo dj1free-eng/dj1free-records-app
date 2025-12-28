@@ -1,7 +1,14 @@
 const DATA_URL = "catalog.json";
 const PREVIEW_SECONDS = 30;
 
-function $(sel){ return document.querySelector(sel); }
+function $(sel){
+  const el = document.querySelector(sel);
+  if(!el){
+    const page = document.body?.getAttribute("data-page") || "unknown";
+    throw new Error(`Falta el elemento "${sel}" en la página "${page}"`);
+  }
+  return el;
+}
 function qs(name){ return new URLSearchParams(location.search).get(name); }
 function byId(arr, id){ return arr.find(x => x.id === id); }
 function setBg(el, url){ el.style.backgroundImage = `url("${url}")`; }
@@ -452,12 +459,8 @@ function renderTrack(data){
 
 init().catch(err => {
   console.error("INIT ERROR:", err);
-
-  const msg =
+  alert(
     "Error cargando la app.\n\n" +
-    "Detalle: " + (err?.message || String(err)) + "\n" +
-    "URL catálogo: " + DATA_URL + "\n\n" +
-    "Abre la consola para ver más (INIT ERROR).";
-
-  alert(msg);
+    (err?.message || String(err))
+  );
 });
