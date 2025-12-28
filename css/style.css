@@ -106,7 +106,11 @@ a{color:inherit; text-decoration:none}
   flex:0 0 auto;
 }
 .card .cover{
-  height:92px; background-size:cover; background-position:center;
+  height:130px;
+  background-size:contain;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-color: rgba(0,0,0,.25);
 }
 .card .label{
   padding:10px 10px 12px;
@@ -174,7 +178,7 @@ a{color:inherit; text-decoration:none}
   overflow:hidden;
   position:relative;
 }
-.release .cover{height:140px;background-size:cover;background-position:center}
+.release .cover{height:160px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color: rgba(0,0,0,.25)}
 .release .name{padding:10px 10px 14px;font-weight:950}
 .playBadge{
   position:absolute; right:10px; bottom:52px;
@@ -259,306 +263,92 @@ a{color:inherit; text-decoration:none}
   background:rgba(255,255,255,.04);
   display:grid; place-items:center;
 }
-.extBtns {
-  display: flex;
-  gap: 12px;
-  margin-top: 14px;
-}
+/* =========================================================
+   BOTONES EXTERNOS (Spotify / YouTube Music) - versión final
+   - Se colorea SOLO el nombre (Spotify / YouTube Music)
+   - Cuando no hay enlace: gris y sin click
+   ========================================================= */
 
-.extBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.9);
-  text-decoration: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform .08s ease, background .15s ease, border-color .15s ease;
-}
-
-/* Icono */
-.extBtn .badge {
-  font-size: 16px;
-  opacity: .9;
-}
-
-/* NO disponible */
-.extBtn.is-unavailable {
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(255,255,255,0.10);
-  color: rgba(255,255,255,0.45);
-  opacity: 0.75;
-  cursor: not-allowed;
-  pointer-events: none; /* no clic */
-}
-
-.extBtn.is-unavailable .badge {
-  opacity: .4;
-}
-
-/* DISPONIBLE */
-.extBtn.is-available.spotify {
-  /* Spotify: botón completo en verde, texto blanco */
-  background: #1ED760;
-  border-color: #1ED760;
-  color: #ffffff;
-}
-
-.extBtn.is-available.ytmusic {
-  /* YouTube Music: botón completo en rojo, texto blanco */
-  background: #ff0000;
-  border-color: #ff0000;
-  color: #ffffff;
-}
-
-/* Badge más limpio sobre fondo sólido */
-.extBtn.is-available .badge{
-  background: rgba(0,0,0,.18);
-  border-color: rgba(255,255,255,.22);
-  color: #ffffff;
-}
-
-.extBtn.is-available:active {
-  transform: scale(0.985);
-}
-/* ===== CONTROLES (clavados a la imagen) ===== */
-.controlsV2{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:18px;
-  margin:14px 0 16px;
-}
-
-.ctrlBtnV2{
-  width:56px;
-  height:56px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.08);
-  box-shadow: 0 10px 26px rgba(0,0,0,.45);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.ctrlBtnV2 svg{
-  width:26px;
-  height:26px;
-  fill:#fff;
-  opacity:.95;
-}
-
-.ctrlMainV2{
-  width:78px;
-  height:78px;
-  background: rgba(255,255,255,.12);
-}
-
-.ctrlMainV2 svg{
-  width:30px;
-  height:30px;
-}
-
-.ctrlMainV2 .icoPause{ display:none; }
-.ctrlMainV2.is-pause .icoPlay{ display:none; }
-.ctrlMainV2.is-pause .icoPause{ display:block; }
-
-/* ===== BOTONES SPOTIFY / YT (como la imagen) ===== */
-.extBtnsV2{
+.extBtns{
+  margin-top:14px;
   display:flex;
   flex-direction:column;
   gap:14px;
-  margin-top:10px;
 }
 
-.extBtnV2{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:14px 18px;
-  border-radius:14px;
+.extBtn{
+  width:100%;
+  min-height:76px;
+  border-radius:18px;
   border:1px solid rgba(255,255,255,.12);
   background: rgba(255,255,255,.06);
-  box-shadow: 0 12px 30px rgba(0,0,0,.50);
-  text-decoration:none;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0,0,0,.55);
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:16px 18px;
+  font-weight:950;
+  font-size:20px;
+  line-height:1.1;
+  letter-spacing:.2px;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.extIcon{
-  width:34px;
-  height:34px;
-  border-radius:10px;
+.extBtn .badge{
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  background: rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.12);
   display:flex;
   align-items:center;
   justify-content:center;
-  background: rgba(0,0,0,.35);
-  border:1px solid rgba(255,255,255,.12);
-}
-
-.extIcon svg{
-  width:22px;
-  height:22px;
-  fill:#fff;
-}
-
-.extText{
-  color:#fff;
-  font-weight:900;      /* BOLD */
-  letter-spacing:.2px;
-}
-
-.extLead{
-  font-weight:900;
+  flex:0 0 auto;
+  font-size:22px;
   color:#fff;
 }
 
-.brand{ font-weight:900; }
-.brandSpotify{ color:#1DB954; }
-.brandYT{ color:#FF2D2D; }
-
-/* No disponible */
-.extBtnV2.is-unavailable{
-  opacity:.35;
+/* Estado: NO disponible */
+.extBtn.is-unavailable{
+  opacity:.38;
   filter: grayscale(1);
   pointer-events:none;
 }
+
+/* Estado: disponible */
+.extBtn.is-available:active{ transform: scale(.985); }
+
+/* Colores de marca SOLO en el nombre */
+.extBtn.spotify .brandWord{ color:#1DB954; }
+.extBtn.ytmusic .brandWord{ color:#FF2D2D; }
+
 /* =========================================================
-   FIX DEFINITIVO BOTONES EXTERNOS (Spotify / YouTube Music)
-   - Pegar AL FINAL del style.css
-   - No hace falta borrar nada: esto pisa lo anterior
-   - Compatible con tu HTML actual: .extBtns / .extBtn / .badge
-   - Compatible con tu JS actual: is-available / is-unavailable + spotify/ytmusic
+   CONTROLES DE REPRODUCCIÓN (más parecidos a tu referencia)
    ========================================================= */
-
-.extBtns{
-  margin-top:14px !important;
-  display:flex !important;
-  flex-direction:column !important;
-  gap:12px !important;
-  width:100% !important;
+.controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:22px;
+  padding:14px 0 4px;
 }
 
-.extBtn{
-  width:100% !important;
-  height:52px !important;
-  min-height:52px !important;
-  border-radius:16px !important;
-  border:1px solid var(--line) !important;
-  background: rgba(255,255,255,.06) !important;
-
-  display:flex !important;
-  align-items:center !important;
-  gap:12px !important;
-
-  padding:0 14px !important;
-  font-weight:950 !important;
-  color:#fff !important;
-
-  /* evita “botón gigante” por cosas heredadas */
-  line-height:1 !important;
-  font-size:15px !important;
-  box-sizing:border-box !important;
+.ctrlBtn{
+  width:66px;
+  height:66px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,.50);
+  display:grid;
+  place-items:center;
+  color:var(--text);
+  font-size:26px;
 }
 
-.extBtn .badge{
-  width:26px !important;
-  height:26px !important;
-  border-radius:8px !important;
-  display:grid !important;
-  place-items:center !important;
-
-  background:rgba(0,0,0,.25) !important;
-  border:1px solid rgba(255,255,255,.14) !important;
-  color:#fff !important;
-
-  /* por si alguna regla vieja lo agranda */
-  font-size:16px !important;
-  line-height:1 !important;
-}
-
-/* NO disponible */
-.extBtn.is-unavailable{
-  background: rgba(255,255,255,.04) !important;
-  border-color: rgba(255,255,255,.10) !important;
-  color: rgba(255,255,255,.45) !important;
-  opacity: .75 !important;
-  pointer-events:none !important;
-}
-
-.extBtn.is-unavailable .badge{
-  opacity:.45 !important;
-}
-
-/* DISPONIBLE: relleno completo + texto blanco */
-.extBtn.is-available.spotify{
-  background:#1ED760 !important;
-  border-color:#1ED760 !important;
-  color:#ffffff !important;
-}
-
-.extBtn.is-available.ytmusic{
-  background:#FF0000 !important;
-  border-color:#FF0000 !important;
-  color:#ffffff !important;
-}
-
-/* Badge sobre fondo sólido */
-.extBtn.is-available .badge{
-  background: rgba(0,0,0,.18) !important;
-  border-color: rgba(255,255,255,.22) !important;
-}
-
-/* “tap” */
-.extBtn:active{
-  transform: scale(0.985);
-}
-/* =========================================================
-   BOTONES EXTERNOS: más grandes, menos “gris vacío”
-   - Pegar AL FINAL (último bloque del CSS)
-   ========================================================= */
-
-.extBtns{
-  gap:16px !important;
-}
-
-/* Botón más alto y con más presencia */
-.extBtn{
-  height:72px !important;
-  min-height:72px !important;
-
-  padding:0 18px !important;
-  gap:16px !important;
-
-  font-size:20px !important;   /* texto grande */
-  font-weight:950 !important;
-  letter-spacing:.2px !important;
-}
-
-/* Icono/badge más grande (más “relleno visual”) */
-.extBtn .badge{
-  width:44px !important;
-  height:44px !important;
-  border-radius:12px !important;
-
-  font-size:22px !important;   /* símbolo grande */
-}
-
-/* Si quieres todavía menos gris: oscurecemos fondo del badge
-   para que el icono “pese” más */
-.extBtn.is-available .badge{
-  background: rgba(0,0,0,.28) !important;
-  border-color: rgba(255,255,255,.20) !important;
-}
-
-/* El texto alineado y ocupando ancho */
-.extBtn{
-  justify-content:flex-start !important;
+.ctrlMain{
+  width:92px;
+  height:92px;
+  background: rgba(255,255,255,.12);
+  font-size:30px;
 }
