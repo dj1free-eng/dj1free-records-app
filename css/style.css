@@ -520,3 +520,45 @@ a{color:inherit; text-decoration:none}
 .extBtn:active{
   transform: scale(0.985);
 }
+/* =========================================================
+   BOTONES EXTERNOS: más grandes, menos “gris vacío”
+   - Pegar AL FINAL (último bloque del CSS)
+   ========================================================= */
+
+.extBtns{
+  gap:16px !important;
+}
+
+/* Botón más alto y con más presencia */
+.extBtn{
+  height:72px !important;
+  min-height:72px !important;
+
+  padding:0 18px !important;
+  gap:16px !important;
+
+  font-size:20px !important;   /* texto grande */
+  font-weight:950 !important;
+  letter-spacing:.2px !important;
+}
+
+/* Icono/badge más grande (más “relleno visual”) */
+.extBtn .badge{
+  width:44px !important;
+  height:44px !important;
+  border-radius:12px !important;
+
+  font-size:22px !important;   /* símbolo grande */
+}
+
+/* Si quieres todavía menos gris: oscurecemos fondo del badge
+   para que el icono “pese” más */
+.extBtn.is-available .badge{
+  background: rgba(0,0,0,.28) !important;
+  border-color: rgba(255,255,255,.20) !important;
+}
+
+/* El texto alineado y ocupando ancho */
+.extBtn{
+  justify-content:flex-start !important;
+}
