@@ -5,6 +5,15 @@
             "id": "dj1free",
             "name": "dj1fRee",
             "banner": "assets/artists/dj1free/banner.jpg",
+            "singles": [{
+                  "id": "subelo_01",
+                  "title": "Súbelo",
+                  "previewUrl": "assets/previews/singles/subelo.mp3",
+                  "durationSec": 30,
+                  "spotifyUrl": "",
+                  "ytMusicUrl": ""
+    }
+  ],
             "albums": [
                 {
                     "id": "gymwave",
