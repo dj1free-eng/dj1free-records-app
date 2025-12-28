@@ -37,54 +37,24 @@
         <div class="dot" id="seekDot"></div>
       </div>
 
-<div class="controls controlsV2">
-  <button class="ctrlBtnV2" id="btnBack" aria-label="Atrás 10s" type="button">
-    <!-- << -->
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M11 18V6L2 12l9 6zm1-6 10 6V6l-10 6z"></path>
-    </svg>
-  </button>
+      <div class="controls">
+        <button class="ctrlBtn" id="btnBack" aria-label="Atrás 10s">⟲</button>
+        <button class="ctrlBtn ctrlMain" id="btnPlay" aria-label="Play/Pause">▶</button>
+        <button class="ctrlBtn" id="btnFwd" aria-label="Adelante 10s">⟳</button>
+      </div>
 
-  <button class="ctrlBtnV2 ctrlMainV2 is-play" id="btnPlay" aria-label="Play/Pause" type="button">
-    <!-- play -->
-    <svg class="icoPlay" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M8 5v14l11-7L8 5z"></path>
-    </svg>
-    <!-- pause -->
-    <svg class="icoPause" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
-    </svg>
-  </button>
+      
+      <div class="extBtns">
+        <a class="extBtn" id="btnSpotify" target="_blank" rel="noopener">
+          <span class="badge">⦿</span>
+          <span>Escuchar en <span class="brandWord">Spotify</span></span>
+        </a>
+        <a class="extBtn" id="btnYtMusic" target="_blank" rel="noopener">
+          <span class="badge">▶</span>
+          <span>Escuchar en <span class="brandWord">YouTube Music</span></span>
+        </a>
+      </div>
 
-  <button class="ctrlBtnV2" id="btnFwd" aria-label="Adelante 10s" type="button">
-    <!-- >> -->
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M13 6v12l9-6-9-6zM2 18l10-6L2 6v12z"></path>
-    </svg>
-  </button>
-</div>
-
-      <div class="extBtns extBtnsV2">
-  <a class="extBtnV2 extBtnSpotify" id="btnSpotify" target="_blank" rel="noopener">
-    <span class="extIcon" aria-hidden="true">
-      <!-- Spotify -->
-      <svg viewBox="0 0 24 24">
-        <path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm4.58 14.53c-.2.32-.62.42-.94.22-2.58-1.58-5.83-1.94-9.66-1.07-.36.08-.73-.14-.81-.5-.08-.36.14-.73.5-.81 4.17-.95 7.76-.54 10.63 1.22.32.2.42.62.22.94zm1.34-2.99c-.25.4-.78.52-1.18.27-2.95-1.82-7.44-2.35-10.93-1.29-.45.14-.92-.11-1.06-.56-.14-.45.11-.92.56-1.06 3.99-1.21 8.94-.61 12.33 1.49.4.25.52.78.27 1.18zm.11-3.11C14.5 8.27 8.3 8.09 5.07 9.07c-.54.16-1.11-.14-1.28-.68-.16-.54.14-1.11.68-1.28 3.71-1.12 10.56-.9 14.48 1.42.49.29.65.92.36 1.41-.29.49-.92.65-1.41.36z"></path>
-      </svg>
-    </span>
-    <span class="extText"><span class="extLead">Escuchar en</span> <span class="brand brandSpotify">Spotify</span></span>
-  </a>
-
-  <a class="extBtnV2 extBtnYT" id="btnYtMusic" target="_blank" rel="noopener">
-    <span class="extIcon" aria-hidden="true">
-      <!-- YouTube -->
-      <svg viewBox="0 0 24 24">
-        <path d="M21.6 7.2s-.2-1.4-.8-2c-.8-.8-1.7-.8-2.1-.9C15.8 4 12 4 12 4h0s-3.8 0-6.7.3c-.4.1-1.3.1-2.1.9-.6.6-.8 2-.8 2S2 8.8 2 10.4v1.2c0 1.6.4 3.2.4 3.2s.2 1.4.8 2c.8.8 1.9.8 2.4.9 1.7.2 6.4.3 6.4.3s3.8 0 6.7-.3c.4-.1 1.3-.1 2.1-.9.6-.6.8-2 .8-2s.4-1.6.4-3.2v-1.2c0-1.6-.4-3.2-.4-3.2zM10 14.7V8.9l6 2.9-6 2.9z"></path>
-      </svg>
-    </span>
-    <span class="extText"><span class="extLead">Escuchar en</span> <span class="brand brandYT">YouTube Music</span></span>
-  </a>
-</div>
 
       <div class="muted small" id="trackBlurb" style="margin-top:12px;text-align:center"></div>
     </section>

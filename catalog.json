@@ -5,15 +5,6 @@
             "id": "dj1free",
             "name": "dj1fRee",
             "banner": "assets/artists/dj1free/banner.jpg",
-            "singles": [{
-                  "id": "subelo_01",
-                  "title": "Súbelo",
-                  "previewUrl": "assets/previews/singles/subelo.mp3",
-                  "durationSec": 30,
-                  "spotifyUrl": "https://open.spotify.com/track/7E9jbEwnhzEYJwdOGPvXJz?si=xusa_CBJStiHtpacFZvc_A",
-                  "ytMusicUrl": "https://music.youtube.com/watch?v=YMByxCv_itA&si=jiQLykgwroBwsfBB"
-    }
-  ],
             "albums": [
                 {
                     "id": "gymwave",
@@ -235,7 +226,7 @@
                     "title": "Silicio & Verso",
                     "previewUrl": "assets/previews/singles/silicio-verso.mp3",
                     "durationSec": 30,
-                    "spotifyUrl": "",
+                    "spotifyUrl": "https://open.spotify.com/track/5mY6NRFSdNfHIVbAPS4Rlk",
                     "ytMusicUrl": "https://music.youtube.com/watch?v=1S3CX79cedI"
                 }
             ]
