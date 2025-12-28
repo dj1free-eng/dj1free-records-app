@@ -9,6 +9,7 @@
   --shadow: 0 12px 40px rgba(0,0,0,.45);
   --radius:18px;
   --brandLogoH: 26px;
+  --cardSize: clamp(112px, 18vw, 136px);
 }
 
 *{box-sizing:border-box}
@@ -104,7 +105,7 @@ a{color:inherit; text-decoration:none}
 .hscroll::-webkit-scrollbar{display:none}
 
 .card{
-  width:130px;
+  width: var(--cardSize);
   border-radius:16px;
   background: var(--panel2);
   border:1px solid var(--line);
@@ -112,7 +113,7 @@ a{color:inherit; text-decoration:none}
   flex:0 0 auto;
 }
 .card .cover{
-  height:130px;
+  height: var(--cardSize);
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
