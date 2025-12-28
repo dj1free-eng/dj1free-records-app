@@ -451,6 +451,13 @@ function renderTrack(data){
 }
 
 init().catch(err => {
-  console.error(err);
-  alert("Error cargando la app. Revisa data/catalog.json y rutas de archivos.");
+  console.error("INIT ERROR:", err);
+
+  const msg =
+    "Error cargando la app.\n\n" +
+    "Detalle: " + (err?.message || String(err)) + "\n" +
+    "URL catálogo: " + DATA_URL + "\n\n" +
+    "Abre la consola para ver más (INIT ERROR).";
+
+  alert(msg);
 });
