@@ -24,6 +24,7 @@ a{color:inherit; text-decoration:none}
 .container{max-width:520px; margin:0 auto; padding:18px 16px 90px}
 
 .topbar{
+  transition: all .2s ease;
   position:sticky; top:0; z-index:50;
   background: linear-gradient(to bottom, rgba(11,12,15,.92), rgba(11,12,15,.55));
   backdrop-filter: blur(10px);
