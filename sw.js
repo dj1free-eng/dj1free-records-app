@@ -1,4 +1,4 @@
-const CACHE = "dj1free-records-v1";
+const CACHE_NAME = "dj1free-records-v7"; // cambia el número cuando actualices
 const ASSETS = [
   "./",
   "index.html",
