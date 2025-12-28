@@ -1,4 +1,4 @@
-const DATA_URL = "data/catalog.json";
+const DATA_URL = "catalog.json";
 const PREVIEW_SECONDS = 30;
 
 function $(sel){ return document.querySelector(sel); }
