@@ -17,6 +17,30 @@ async function loadData(){
   return res.json();
 }
 
+/* =========================
+   BOTONES EXTERNOS (FIX)
+   ========================= */
+function setExternalButtonState(btnEl, url, platform) {
+  const hasUrl = typeof url === "string" && url.trim() !== "";
+
+  // Limpieza total
+  btnEl.classList.remove("is-available", "is-unavailable", "spotify", "ytmusic");
+
+  if (hasUrl) {
+    btnEl.classList.add("is-available", platform);
+    btnEl.href = url.trim();
+    btnEl.target = "_blank";
+    btnEl.rel = "noopener noreferrer";
+    btnEl.setAttribute("aria-disabled", "false");
+    btnEl.removeAttribute("tabindex");
+  } else {
+    btnEl.classList.add("is-unavailable");
+    btnEl.removeAttribute("href");
+    btnEl.setAttribute("aria-disabled", "true");
+    btnEl.setAttribute("tabindex", "-1");
+  }
+}
+
 function allReleasesSortedByRecency(data){
   const out = [];
   for(const a of data.artists){
@@ -219,12 +243,16 @@ function renderTrack(data){
   $("#trackArtistLine").textContent = a?.name || "";
   $("#trackBlurb").textContent = t.blurb || "";
   setBg($("#trackCover"), t.cover);
-const btnSpotify = document.getElementById("btnSpotify");
-const btnYtMusic = document.getElementById("btnYtMusic");
 
-setExternalButtonState(btnSpotify, track.spotifyUrl, "spotify");
-setExternalButtonState(btnYtMusic, track.ytMusicUrl, "ytmusic");
-  // Previews: SIEMPRE 30s (aunque el JSON tenga otro valor)
+  // ====== BOTONES EXTERNOS (AQUÍ ESTABA EL FALLO) ======
+  const btnSpotify = document.getElementById("btnSpotify");
+  const btnYtMusic = document.getElementById("btnYtMusic");
+
+  setExternalButtonState(btnSpotify, t.spotifyUrl, "spotify");
+  setExternalButtonState(btnYtMusic, t.ytMusicUrl, "ytmusic");
+  // ====================================================
+
+  // Previews: SIEMPRE 30s
   const dur = PREVIEW_SECONDS;
   $("#timeLeft").textContent = fmtTime(dur);
   $("#timeNow").textContent = "0:00";
@@ -253,29 +281,11 @@ setExternalButtonState(btnYtMusic, track.ytMusicUrl, "ytmusic");
     dot.style.left = `${pct}%`;
     $("#timeNow").textContent = fmtTime(cur);
   }
-function setExternalButtonState(btnEl, url, platform) {
-  const hasUrl = typeof url === "string" && url.trim() !== "";
 
-  // Limpieza total de estados previos
-  btnEl.classList.remove("is-available", "is-unavailable", "spotify", "ytmusic");
-
-  if (hasUrl) {
-    btnEl.classList.add("is-available", platform);
-    btnEl.href = url.trim();
-    btnEl.setAttribute("aria-disabled", "false");
-    btnEl.removeAttribute("tabindex");
-  } else {
-    btnEl.classList.add("is-unavailable");
-    btnEl.removeAttribute("href");
-    btnEl.setAttribute("aria-disabled", "true");
-    btnEl.setAttribute("tabindex", "-1");
-  }
-}
   const btnPlay = $("#btnPlay");
   btnPlay.addEventListener("click", async () => {
     if(!playing){
       try{
-        // si estaba al final del preview, reinicia
         if((audio.currentTime||0) >= dur) audio.currentTime = 0;
         await audio.play();
         playing = true;
@@ -309,20 +319,6 @@ function setExternalButtonState(btnEl, url, platform) {
 
   audio.addEventListener("timeupdate", () => { clampTime(); updateUI(); });
   audio.addEventListener("ended", () => { playing = false; btnPlay.textContent = "▶"; });
-
-  // External links (si están vacíos, avisamos)
-  const sp = $("#btnSpotify");
-  const yt = $("#btnYtMusic");
-
-  sp.href = t.spotifyUrl || "#";
-  yt.href = t.ytMusicUrl || "#";
-
-  sp.addEventListener("click", (e) => {
-    if(!t.spotifyUrl){ e.preventDefault(); alert("Enlace Spotify pendiente de añadir."); }
-  });
-  yt.addEventListener("click", (e) => {
-    if(!t.ytMusicUrl){ e.preventDefault(); alert("Enlace YouTube Music pendiente de añadir."); }
-  });
 }
 
 init().catch(err => {
