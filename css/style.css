@@ -8,6 +8,7 @@
   --accent:#25d366;
   --shadow: 0 12px 40px rgba(0,0,0,.45);
   --radius:18px;
+  --brandLogoH: 26px;
 }
 
 *{box-sizing:border-box}
@@ -367,8 +368,8 @@ a{color:inherit; text-decoration:none}
 }
 
 .brandLogo{
-  height: 26px;        /* 🔑 tamaño correcto */
-  max-height: 26px;
+  height: var(--brandLogoH);        /* controlado por variable */
+  max-height: var(--brandLogoH);
   width: auto;
   display: block;
   object-fit: contain;
