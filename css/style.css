@@ -352,3 +352,13 @@ a{color:inherit; text-decoration:none}
   background: rgba(255,255,255,.12);
   font-size:30px;
 }
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brandLogo {
+  height: 26px;          /* clave */
+  width: auto;
+  display: block;
+}
