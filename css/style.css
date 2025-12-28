@@ -30,6 +30,7 @@ a{color:inherit; text-decoration:none}
   border-bottom:1px solid var(--line);
 }
 .topbar .row{
+  height: 52px;              /* fija la altura */
   max-width:520px; margin:0 auto; padding:14px 16px;
   display:flex; align-items:center; justify-content:space-between;
 }
@@ -357,8 +358,11 @@ a{color:inherit; text-decoration:none}
   align-items: center;
 }
 
-.brandLogo {
-  height: 26px;          /* clave */
+.brandLogo{
+  height: 18px;        /* 🔑 tamaño correcto */
+  max-height: 18px;
   width: auto;
   display: block;
+  object-fit: contain;
+  opacity: 0.95;
 }
