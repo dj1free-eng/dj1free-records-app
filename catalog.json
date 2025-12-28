@@ -5,6 +5,18 @@
             "id": "dj1free",
             "name": "dj1fRee",
             "banner": "assets/artists/dj1free/banner.jpg",
+            "singles": [
+  
+                {
+                    "id": "subelo",  
+                    "title": "Súbelo",  
+                    "year": 2025,
+                    "cover": "assets/covers/dj1free/subelo.jpg",
+                    "previewUrl": "assets/previews/dj1free/singles/subelo.mp3", 
+                    "spotifyUrl": "https://open.spotify.com/track/7E9jbEwnhzEYJwdOGPvXJz?si=3XRCwixyRxuDs1rc3ZQo3w",
+                    "ytMusicUrl": "https://music.youtube.com/watch?v=YMByxCv_itA&si=3V2Kk8XBXBvSDrNW"
+                }
+            ],  
             "albums": [
                 {
                     "id": "gymwave",
