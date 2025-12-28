@@ -2,12 +2,7 @@ const DATA_URL = "catalog.json";
 const PREVIEW_SECONDS = 30;
 
 function $(sel){
-  const el = document.querySelector(sel);
-  if(!el){
-    const page = document.body?.getAttribute("data-page") || "unknown";
-    throw new Error(`Falta el elemento "${sel}" en la página "${page}"`);
-  }
-  return el;
+  return document.querySelector(sel);
 }
 function qs(name){ return new URLSearchParams(location.search).get(name); }
 function byId(arr, id){ return arr.find(x => x.id === id); }
