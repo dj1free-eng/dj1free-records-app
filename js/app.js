@@ -386,7 +386,17 @@ function renderTrack(data){
   $("#trackAlbum").textContent = t.album || "";
   $("#trackArtistLine").textContent = a?.name || "";
   $("#trackBlurb").textContent = t.blurb || "";
-  setBg($("#trackCover"), t.cover);
+  const coverEl = $("#trackCover");
+
+if (coverEl && typeof t.cover === "string" && t.cover.trim() !== "") {
+  try {
+    // Convierte la ruta a URL absoluta (Safari-safe)
+    const coverUrl = new URL(t.cover.trim(), location.href).toString();
+    setBg(coverEl, coverUrl);
+  } catch (e) {
+    console.warn("Cover inválida:", t.cover, e);
+  }
+}
 
   // ====== BOTONES EXTERNOS (AQUÍ ESTABA EL FALLO) ======
   const btnSpotify = document.getElementById("btnSpotify");
