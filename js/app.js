@@ -218,9 +218,9 @@ async function init(){
   if(page === "album") renderAlbum(data);
   if(page === "track") renderTrack(data);
 
-  if("serviceWorker" in navigator){
-    navigator.serviceWorker.register("sw.js").catch(()=>{});
-  }
+  // if("serviceWorker" in navigator){
+//   navigator.serviceWorker.register("sw.js").catch(()=>{});
+// }
 }
 
 function renderHome(data){
