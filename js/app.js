@@ -6,7 +6,12 @@ function $(sel){
 }
 function qs(name){ return new URLSearchParams(location.search).get(name); }
 function byId(arr, id){ return arr.find(x => x.id === id); }
-function setBg(el, url){ el.style.backgroundImage = `url("${url}")`; }
+function setBg(el, url){
+  const u = (typeof url === "string") ? url.trim() : "";
+  if(!u){ el.style.backgroundImage = "none"; return; }
+  // encodeURI mantiene / : ? = & pero escapa espacios y caracteres raros
+  el.style.backgroundImage = `url("${encodeURI(u)}")`;
+}
 function fmtTime(sec){
   const m = Math.floor(sec/60);
   const s = Math.floor(sec%60).toString().padStart(2,"0");
@@ -261,9 +266,11 @@ function fillTrackRow(containerSel, data, tracks){
     card.className = "card";
     card.href = `cancion.html?id=${encodeURIComponent(t.id)}`;
     card.innerHTML = `
-      <div class="cover" style="background-image:url('${t.cover}')"></div>
-      <div class="label">${t.title}</div>
-    `;
+  <div class="cover"></div>
+  <div class="label">${a.name}</div>
+`;
+setBg(card.querySelector(".cover"), a.heroImage);
+setBg(card.querySelector(".cover"), t.cover);
     wrap.appendChild(card);
   });
 }
@@ -276,14 +283,15 @@ function renderArtists(data){
     item.className = "listItem";
     item.href = `artista.html?id=${encodeURIComponent(a.id)}`;
     item.innerHTML = `
-      <div class="row">
-        <div class="thumb" style="background-image:url('${a.heroImage}')"></div>
-        <div>
-          <div class="liTitle">${a.name}</div>
-          <div class="liSub">${a.tagline || ""}</div>
-        </div>
-      </div>
-    `;
+  <div class="row">
+    <div class="thumb"></div>
+    <div>
+      <div class="liTitle">${a.name}</div>
+      <div class="liSub">${a.tagline || ""}</div>
+    </div>
+  </div>
+`;
+setBg(item.querySelector(".thumb"), a.heroImage);
     list.appendChild(item);
   });
 }
@@ -316,11 +324,12 @@ function renderArtist(data){
       : `cancion.html?id=${encodeURIComponent(r.trackIds?.[0] || "")}`;
 
     el.href = href;
-    el.innerHTML = `
-      <div class="cover" style="background-image:url('${r.cover}')"></div>
-      <div class="playBadge">▶</div>
-      <div class="name">${r.title}</div>
-    `;
+el.innerHTML = `
+  <div class="cover"></div>
+  <div class="playBadge">▶</div>
+  <div class="name">${r.title}</div>
+`;
+setBg(el.querySelector(".cover"), r.cover);
     grid.appendChild(el);
   });
 }
