@@ -164,21 +164,30 @@ function renderHome(data){
   fillTrackRow("#rowRecomendado", data.tracks.slice(3,9));
 }
 
-function fillTrackRow(sel, tracks){
-  const wrap = $(sel);
-  if(!wrap) return;
+function fillTrackRow(containerSel, data, tracks){
+  const wrap = document.querySelector(containerSel);
+  if (!wrap) return;
+
   wrap.innerHTML = "";
 
-  tracks.forEach(t=>{
-    const a = document.createElement("a");
-    a.className="card";
-    a.href = `cancion.html?id=${t.id}`;
-    a.innerHTML = `
+  tracks.forEach(t => {
+    const a = byId(data.artists, t.artistId);
+
+    const card = document.createElement("a");
+    card.className = "card";
+    card.href = `cancion.html?id=${encodeURIComponent(t.id)}`;
+
+    card.innerHTML = `
       <div class="cover"></div>
       <div class="label">${t.title}</div>
     `;
-    setBg(a.querySelector(".cover"), t.cover);
-    wrap.appendChild(a);
+
+    const coverEl = card.querySelector(".cover");
+    if (coverEl) {
+      setBg(coverEl, t.cover);
+    }
+
+    wrap.appendChild(card);
   });
 }
 
