@@ -411,3 +411,11 @@ a{color:inherit; text-decoration:none}
 .muted{
   text-shadow: 0 2px 12px rgba(0,0,0,.55);
 }
+/* --- Títulos grandes sobre hero/header --- */
+.heroTitle,
+.albumTitle,
+.trackTitle,
+.pageHero h1,
+.pageHero h2{
+  text-shadow: 0 3px 18px rgba(0,0,0,.75);
+}
