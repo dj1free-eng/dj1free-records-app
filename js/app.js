@@ -426,7 +426,21 @@ if (hasPreview) {
     audio = null;
   }
 }
+if (!audio) {
+  console.warn("Track sin preview:", t.id);
 
+  // Desactiva controles
+  const btnPlay = $("#btnPlay");
+  if (btnPlay) {
+    btnPlay.classList.remove("is-pause");
+    btnPlay.classList.add("is-play");
+    btnPlay.setAttribute("aria-disabled", "true");
+    btnPlay.style.opacity = "0.4";
+    btnPlay.style.pointerEvents = "none";
+  }
+
+  return; // ⛔ CORTA renderTrack AQUÍ
+}
   let playing = false;
 
   const fill = $("#seekFill");
