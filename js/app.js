@@ -171,7 +171,7 @@ function fillTrackRow(containerSel, data, tracks){
   wrap.innerHTML = "";
 
   tracks.forEach(t => {
-    const a = byId(data.artists, t.artistId);
+    const artist = byId(data.artists, t.artistId);
 
     const card = document.createElement("a");
     card.className = "card";
@@ -183,9 +183,7 @@ function fillTrackRow(containerSel, data, tracks){
     `;
 
     const coverEl = card.querySelector(".cover");
-    if (coverEl) {
-      setBg(coverEl, t.cover);
-    }
+    setBg(coverEl, t.cover);
 
     wrap.appendChild(card);
   });
