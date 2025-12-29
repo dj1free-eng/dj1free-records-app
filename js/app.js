@@ -403,11 +403,18 @@ function renderTrack(data){
 
   const hasPreview = typeof t.previewUrl === "string" && t.previewUrl.trim() !== "";
 
-const audio = hasPreview
-  ? new Audio(encodeURI(t.previewUrl))
-  : null;
-  if(audio){
-  audio.preload = "metadata";
+let audio = null;
+
+if (hasPreview) {
+  try {
+    // Safari-friendly: convierte a URL absoluta y válida sí o sí
+    const audioUrl = new URL(t.previewUrl.trim(), location.href).toString();
+    audio = new Audio(audioUrl);
+    audio.preload = "metadata";
+  } catch (e) {
+    console.warn("previewUrl inválido para", t.id, t.previewUrl, e);
+    audio = null;
+  }
 }
 
   let playing = false;
