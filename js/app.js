@@ -401,8 +401,14 @@ function renderTrack(data){
   $("#timeLeft").textContent = fmtTime(dur);
   $("#timeNow").textContent = "0:00";
 
-  const audio = new Audio(t.previewUrl);
+  const hasPreview = typeof t.previewUrl === "string" && t.previewUrl.trim() !== "";
+
+const audio = hasPreview
+  ? new Audio(encodeURI(t.previewUrl))
+  : null;
+  if(audio){
   audio.preload = "metadata";
+}
 
   let playing = false;
 
@@ -427,7 +433,12 @@ function renderTrack(data){
   }
 
   const btnPlay = $("#btnPlay");
-  btnPlay.addEventListener("click", async () => {
+btnPlay.addEventListener("click", async () => {
+
+  if(!audio){
+    alert("Este tema no tiene preview disponible.");
+    return;
+  }
     if(!playing){
       try{
         if((audio.currentTime||0) >= dur) audio.currentTime = 0;
@@ -461,8 +472,10 @@ function renderTrack(data){
     updateUI();
   });
 
+if(audio){
   audio.addEventListener("timeupdate", () => { clampTime(); updateUI(); });
   audio.addEventListener("ended", () => { playing = false; btnPlay.textContent = "▶"; });
+}
 }
 
 init().catch(err => {
