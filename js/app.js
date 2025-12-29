@@ -142,8 +142,9 @@ async function init(){
 }
 
 init().catch(err=>{
-  console.error(err);
-  alert("Error cargando la app");
+  console.error("INIT ERROR:", err);
+  console.error("STACK:", err?.stack);
+  alert("Error cargando la app: " + (err?.message || err));
 });
 
 /* =========================
