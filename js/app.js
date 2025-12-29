@@ -25,7 +25,10 @@ function setBg(el, url){
    Carga de datos
 ========================= */
 async function loadData(){
-  const res = await fetch(DATA_URL + "?v=" + Date.now(), { cache:"no-store" });
+  const url = new URL(String(DATA_URL).trim(), location.href);
+  url.searchParams.set("v", String(Date.now()));
+
+  const res = await fetch(url.toString(), { cache:"no-store" });
   if(!res.ok) throw new Error("No se pudo cargar catalog.json");
   const raw = await res.json();
   return normalizeCatalog(raw);
