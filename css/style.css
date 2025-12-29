@@ -396,3 +396,18 @@ a{color:inherit; text-decoration:none}
   border-color: rgba(0,224,255,.45);
   box-shadow: 0 0 0 3px rgba(0,224,255,.18), 0 10px 24px rgba(0,0,0,.35);
 }
+/* --- Legibilidad sobre fondo degradado --- */
+.pageTitle,
+.sectionHeader,
+.artistName,
+.trackName,
+.title,
+.kicker,
+.name,
+.card .label{
+  text-shadow: 0 2px 14px rgba(0,0,0,.65);
+}
+
+.muted{
+  text-shadow: 0 2px 12px rgba(0,0,0,.55);
+}
