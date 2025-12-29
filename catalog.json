@@ -4,7 +4,7 @@
         {
             "id": "dj1free",
             "name": "dj1fRee",
-            "banner": "assets/artists/dj1free/banner.jpg",
+"banner": "assets/artists/dj1free.jpg"
             "singles": [
   
                 {
@@ -231,7 +231,7 @@
         {
             "id": "silice",
             "name": "SiLiCe",
-            "banner": "assets/artists/silice/banner.jpg",
+            "banner": "assets/artists/silice.jpg",
             "singles": [
                 {
                     "id": "silice_01",
@@ -246,7 +246,7 @@
         {
             "id": "juandelmuelle",
             "name": "Juan del Muelle",
-            "banner": "assets/artists/juandelmuelle/banner.jpg",
+            "banner": "assets/artists/juan-del-muelle.jpg",
             "singles": [
                 {
                     "id": "jdm_01",
