@@ -1,518 +1,235 @@
 const DATA_URL = "catalog.json";
 const PREVIEW_SECONDS = 30;
 
-function $(sel){
-  return document.querySelector(sel);
-}
+/* =========================
+   Helpers
+========================= */
+function $(sel){ return document.querySelector(sel); }
 function qs(name){ return new URLSearchParams(location.search).get(name); }
 function byId(arr, id){ return arr.find(x => x.id === id); }
-function setBg(el, url){
-  const u = (typeof url === "string") ? url.trim() : "";
-  if(!u){ el.style.backgroundImage = "none"; return; }
-  // encodeURI mantiene / : ? = & pero escapa espacios y caracteres raros
-  el.style.backgroundImage = `url("${encodeURI(u)}")`;
-}
 function fmtTime(sec){
   const m = Math.floor(sec/60);
   const s = Math.floor(sec%60).toString().padStart(2,"0");
   return `${m}:${s}`;
 }
+function setBg(el, url){
+  if(!el) return;
+  if(typeof url !== "string" || !url.trim()){
+    el.style.backgroundImage = "none";
+    return;
+  }
+  el.style.backgroundImage = `url("${encodeURI(url.trim())}")`;
+}
 
+/* =========================
+   Carga de datos
+========================= */
 async function loadData(){
-  const res = await fetch(DATA_URL + "?v=" + Date.now(), { cache: "no-store" });
-  if(!res.ok) throw new Error("No se pudo cargar catalog.json (HTTP " + res.status + ")");
+  const res = await fetch(DATA_URL + "?v=" + Date.now(), { cache:"no-store" });
+  if(!res.ok) throw new Error("No se pudo cargar catalog.json");
   const raw = await res.json();
   return normalizeCatalog(raw);
 }
 
 /* =========================
-   NORMALIZADOR DE CATÁLOGO
-   - Acepta el JSON anidado (artists -> albums/singles -> tracks)
-   - Devuelve el formato que espera esta app:
-     { labelName, featured, artists:[{id,name,heroImage,releases:[]}], tracks:[...] }
-   ========================= */
+   Normalizador
+========================= */
 function normalizeCatalog(raw){
-  // Si ya viene “plano”, no tocamos nada
-  if(raw && raw.labelName && Array.isArray(raw.tracks) && Array.isArray(raw.artists)) return raw;
+  if(raw.labelName && Array.isArray(raw.tracks)) return raw;
 
-  const labelName = raw.labelName || raw.label || "dJ1fRee Records";
-  const artistsIn = Array.isArray(raw.artists) ? raw.artists : [];
-
-  const toSlug = (s) => String(s||"")
-    .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-    .replace(/['’]/g,"")
-    .replace(/&/g,"y")
-    .replace(/[^a-z0-9]+/g,"-")
-    .replace(/^-+|-+$/g,"");
-
-  // Rutas reales en esta app
-  const bannerFallback = (artistId) => {
-    const id = (artistId === "juandelmuelle") ? "juan-del-muelle" : artistId;
-    return `assets/artists/${id}.jpg`;
-  };
-
-  const coverFallback = (artistId, title) => {
-    const folder = (artistId === "juandelmuelle") ? "juan-del-muelle" : artistId;
-    return `assets/covers/${folder}/${toSlug(title)}.jpg`;
-  };
-
-  const resolveCover = (maybeCover, artistId, title) => {
-    const c = String(maybeCover || "").trim();
-    if(!c) return coverFallback(artistId, title);
-
-    // Si apunta a rutas del JSON que NO existen en esta app (assets/albums/...), las convertimos.
-    if(c.includes("assets/albums/")) return coverFallback(artistId, title);
-
-    // Si ya es assets/covers/... o cualquier otra ruta válida del proyecto, la respetamos.
-    return c;
-  };
-
-  const normArtists = [];
+  const labelName = raw.label || "dJ1fRee Records";
   const tracks = [];
-  const releasesGlobal = [];
+  const artists = [];
 
-  for(const a of artistsIn){
-    const artistId = a.id;
-    const artistName = a.name || artistId;
-
-    const heroImage = a.heroImage || a.banner || bannerFallback(artistId);
-
+  raw.artists.forEach(a=>{
     const releases = [];
 
-    // ALBUMS
-    const albums = Array.isArray(a.albums) ? a.albums : [];
-    for(const alb of albums){
-      const relId = alb.id;
-      const relTitle = alb.title || relId;
-      const relYear = alb.year || 0;
-
-      const relCover = resolveCover(alb.cover, artistId, relTitle);
-
+    (a.albums||[]).forEach(alb=>{
+      const cover = alb.cover;
       const trackIds = [];
-      const albTracks = Array.isArray(alb.tracks) ? alb.tracks : [];
-      for(const t of albTracks){
+
+      (alb.tracks||[]).forEach(t=>{
         trackIds.push(t.id);
         tracks.push({
           id: t.id,
-          artistId,
+          artistId: a.id,
           title: t.title,
-          album: relTitle,
-          cover: relCover,
-          previewUrl: t.previewUrl,
+          album: alb.title,
+          cover,
+          previewUrl: t.previewUrl || "",
           spotifyUrl: t.spotifyUrl || "",
           ytMusicUrl: t.ytMusicUrl || "",
           blurb: t.blurb || ""
         });
-      }
+      });
 
-      const rel = { id: relId, type: "album", title: relTitle, year: relYear, cover: relCover, trackIds };
-      releases.push(rel);
-      releasesGlobal.push({ ...rel, artistId, artistName, artistHero: heroImage });
-    }
+      releases.push({
+        id: alb.id,
+        type:"album",
+        title: alb.title,
+        year: alb.year||0,
+        cover,
+        trackIds
+      });
+    });
 
-    // SINGLES (en tu JSON vienen como tracks sueltos)
-    const singles = Array.isArray(a.singles) ? a.singles : [];
-    for(const s of singles){
-      const relTitle = s.title || s.id;
-      const relYear = s.year || 0;
-      const relCover = resolveCover(s.cover, artistId, relTitle);
-
-      const rel = { id: s.id, type: "single", title: relTitle, year: relYear, cover: relCover, trackIds: [s.id] };
-      releases.push(rel);
-      releasesGlobal.push({ ...rel, artistId, artistName, artistHero: heroImage });
-
+    (a.singles||[]).forEach(s=>{
       tracks.push({
         id: s.id,
-        artistId,
-        title: relTitle,
+        artistId: a.id,
+        title: s.title,
         album: "Single",
-        cover: relCover,
-        previewUrl: s.previewUrl,
+        cover: s.cover,
+        previewUrl: s.previewUrl || "",
         spotifyUrl: s.spotifyUrl || "",
         ytMusicUrl: s.ytMusicUrl || "",
         blurb: s.blurb || ""
       });
-    }
 
-    normArtists.push({
-      id: artistId,
-      name: artistName,
-      heroImage,
-      tagline: a.tagline || "",
-      bio: a.bio || "",
+      releases.push({
+        id: s.id,
+        type:"single",
+        title: s.title,
+        year: s.year||0,
+        cover: s.cover,
+        trackIds:[s.id]
+      });
+    });
+
+    artists.push({
+      id: a.id,
+      name: a.name,
+      heroImage: a.heroImage || a.banner,
       releases
     });
-  }
+  });
 
-  // Featured: primer tema del release más “reciente”
-  releasesGlobal.sort((x,y) => (y.year||0)-(x.year||0) || (y.title||"").localeCompare(x.title||""));
-  const featuredTrackId = releasesGlobal[0]?.trackIds?.[0] || tracks[0]?.id || "";
-  const featured = { headline: raw.featured?.headline || "Nuevo lanzamiento", trackId: featuredTrackId };
-
-  return { labelName, featured, artists: normArtists, tracks };
+  return {
+    labelName,
+    featured:{ headline:"Nuevo lanzamiento", trackId: tracks[0]?.id },
+    artists,
+    tracks
+  };
 }
 
 /* =========================
-   BOTONES EXTERNOS (FIX)
-   ========================= */
-function setExternalButtonState(btnEl, url, platform) {
-  const hasUrl = typeof url === "string" && url.trim() !== "";
+   Botones externos
+========================= */
+function setExternalButtonState(btn, url, cls){
+  if(!btn) return;
+  btn.classList.remove("is-available","is-unavailable","spotify","ytmusic");
 
-  // Limpieza total
-  btnEl.classList.remove("is-available", "is-unavailable", "spotify", "ytmusic");
-
-  if (hasUrl) {
-    btnEl.classList.add("is-available", platform);
-    btnEl.href = url.trim();
-    btnEl.target = "_blank";
-    btnEl.rel = "noopener noreferrer";
-    btnEl.setAttribute("aria-disabled", "false");
-    btnEl.removeAttribute("tabindex");
-  } else {
-    btnEl.classList.add("is-unavailable");
-    btnEl.removeAttribute("href");
-    btnEl.setAttribute("aria-disabled", "true");
-    btnEl.setAttribute("tabindex", "-1");
+  if(typeof url === "string" && url.trim()){
+    btn.classList.add("is-available", cls);
+    btn.href = url.trim();
+    btn.target = "_blank";
+    btn.rel = "noopener";
+  }else{
+    btn.classList.add("is-unavailable");
+    btn.removeAttribute("href");
   }
 }
 
-function allReleasesSortedByRecency(data){
-  const out = [];
-  for(const a of data.artists){
-    for(const r of (a.releases||[])){
-      out.push({
-        ...r,
-        artistId: a.id,
-        artistName: a.name,
-        artistHero: a.heroImage
-      });
-    }
-  }
-  // Orden por novedad: year desc, y si empatan, por title desc (estable simple)
-  out.sort((x,y) => (y.year||0)-(x.year||0) || (y.title||"").localeCompare(x.title||""));
-  return out;
-}
-
-function allTracksSortedByRecency(data){
-  // Usamos el orden de releases por novedad y dentro el orden del tracklist
-  const releases = allReleasesSortedByRecency(data);
-  const result = [];
-  for(const r of releases){
-    for(const tid of (r.trackIds||[])){
-      const t = byId(data.tracks, tid);
-      if(t) result.push(t);
-    }
-  }
-  return result;
-}
-
+/* =========================
+   INIT
+========================= */
 async function init(){
   const data = await loadData();
-  document.querySelectorAll("[data-label-name]").forEach(el => el.textContent = data.labelName);
 
-  const page = document.body.getAttribute("data-page");
-  if(page === "home") renderHome(data);
-  if(page === "artists") renderArtists(data);
-  if(page === "artist") renderArtist(data);
-  if(page === "album") renderAlbum(data);
-  if(page === "track") renderTrack(data);
-
-  // if("serviceWorker" in navigator){
-//   navigator.serviceWorker.register("sw.js").catch(()=>{});
-// }
+  const page = document.body.dataset.page;
+  if(page==="home") renderHome(data);
+  if(page==="track") renderTrack(data);
 }
 
+init().catch(err=>{
+  console.error(err);
+  alert("Error cargando la app");
+});
+
+/* =========================
+   HOME
+========================= */
 function renderHome(data){
-  const featuredTrack = byId(data.tracks, data.featured?.trackId) || data.tracks[0];
-  const artist = byId(data.artists, featuredTrack.artistId);
+  const featured = byId(data.tracks, data.featured.trackId);
+  if(!featured) return;
 
-  $("#heroKicker").textContent = data.featured?.headline || "Destacado";
-  $("#heroTitle").textContent = `${artist?.name || ""} - "${featuredTrack.title}"`;
-  setBg($("#heroImg"), featuredTrack.cover);
+  setBg($("#heroImg"), featured.cover);
+  $("#heroTitle").textContent = featured.title;
 
-  $("#ctaPlay").addEventListener("click", () => {
-    location.href = `cancion.html?id=${encodeURIComponent(featuredTrack.id)}`;
-  });
+  $("#ctaPlay").onclick = ()=>{
+    location.href = `cancion.html?id=${featured.id}`;
+  };
 
-  const recentTracks = allTracksSortedByRecency(data).slice(0, 8);
-  const recTracks = allTracksSortedByRecency(data).slice(2, 10);
-
-  fillTrackRow("#rowNovedades", data, recentTracks);
-  fillTrackRow("#rowRecomendado", data, recTracks);
-
-  const rowArtists = $("#rowArtists");
-  rowArtists.innerHTML = "";
-  data.artists.forEach(a => {
-    const card = document.createElement("a");
-    card.className = "card";
-    card.href = `artista.html?id=${encodeURIComponent(a.id)}`;
-    card.innerHTML = `
-      <div class="cover" style="background-image:url('${a.heroImage}')"></div>
-      <div class="label">${a.name}</div>
-    `;
-    rowArtists.appendChild(card);
-  });
-
-  $("#goArtists").addEventListener("click", () => location.href = "artistas.html");
-  $("#goFav").addEventListener("click", () => alert("Favoritos: siguiente sprint."));
+  fillTrackRow("#rowNovedades", data.tracks.slice(0,6));
+  fillTrackRow("#rowRecomendado", data.tracks.slice(3,9));
 }
 
-function fillTrackRow(containerSel, data, tracks){
-  const wrap = document.querySelector(containerSel);
+function fillTrackRow(sel, tracks){
+  const wrap = $(sel);
+  if(!wrap) return;
   wrap.innerHTML = "";
-  tracks.forEach(t => {
-    const card = document.createElement("a");
-    card.className = "card";
-    card.href = `cancion.html?id=${encodeURIComponent(t.id)}`;
-    card.innerHTML = `
-  <div class="cover"></div>
-  <div class="label">${a.name}</div>
-`;
-setBg(card.querySelector(".cover"), a.heroImage);
-setBg(card.querySelector(".cover"), t.cover);
-    wrap.appendChild(card);
-  });
-}
 
-function renderArtists(data){
-  const list = $("#artistList");
-  list.innerHTML = "";
-  data.artists.forEach(a => {
-    const item = document.createElement("a");
-    item.className = "listItem";
-    item.href = `artista.html?id=${encodeURIComponent(a.id)}`;
-    item.innerHTML = `
-  <div class="row">
-    <div class="thumb"></div>
-    <div>
-      <div class="liTitle">${a.name}</div>
-      <div class="liSub">${a.tagline || ""}</div>
-    </div>
-  </div>
-`;
-setBg(item.querySelector(".thumb"), a.heroImage);
-    list.appendChild(item);
-  });
-}
-
-function renderArtist(data){
-  const id = qs("id") || data.artists[0].id;
-  const a = byId(data.artists, id);
-  if(!a) return;
-
-  $("#artistTitle").textContent = a.name;
-  $("#artistName").textContent = a.name;
-  $("#artistBio").textContent = a.bio || "";
-  setBg($("#artistHeroImg"), a.heroImage);
-
-  // Orden por novedad
-  const releases = [...(a.releases || [])].sort((x,y) =>
-  (y.year||0)-(x.year||0) ||
-  ((x.type === y.type) ? 0 : (x.type === "single" ? -1 : 1)) ||
-  (y.title||"").localeCompare(x.title||"")
-);
-
-  const grid = $("#releaseGrid");
-  grid.innerHTML = "";
-  releases.forEach(r => {
-    const el = document.createElement("a");
-    el.className = "release";
-
-    const href = (r.type === "album")
-      ? `album.html?id=${encodeURIComponent(r.id)}&artist=${encodeURIComponent(a.id)}`
-      : `cancion.html?id=${encodeURIComponent(r.trackIds?.[0] || "")}`;
-
-    el.href = href;
-el.innerHTML = `
-  <div class="cover"></div>
-  <div class="playBadge">▶</div>
-  <div class="name">${r.title}</div>
-`;
-setBg(el.querySelector(".cover"), r.cover);
-    grid.appendChild(el);
-  });
-}
-
-function renderAlbum(data){
-  const albumId = qs("id");
-  const artistId = qs("artist");
-
-  const artist = byId(data.artists, artistId) || data.artists.find(a => (a.releases||[]).some(r => r.id === albumId));
-  const release = artist?.releases?.find(r => r.id === albumId);
-
-  if(!artist || !release){
-    $("#albumHeader").textContent = "ÁLBUM";
-    $("#albumTitle").textContent = "No encontrado";
-    return;
-  }
-
-  $("#albumHeader").textContent = "ÁLBUM";
-  $("#albumTitle").textContent = release.title;
-  $("#albumArtist").textContent = artist.name;
-  setBg($("#albumCover"), release.cover);
-
-  const list = $("#albumTrackList");
-  list.innerHTML = "";
-
-  (release.trackIds || []).forEach((tid, idx) => {
-    const t = byId(data.tracks, tid);
-    if(!t) return;
-
-    const row = document.createElement("div");
-    row.className = "trackRow";
-    row.innerHTML = `
-      <div class="trackLeft">
-        <div class="trackNum">#${idx+1}</div>
-        <div class="trackName">${t.title}</div>
-      </div>
-      <div class="trackRight">
-        <a class="trackPlay" href="cancion.html?id=${encodeURIComponent(t.id)}" title="Abrir">▶</a>
-      </div>
+  tracks.forEach(t=>{
+    const a = document.createElement("a");
+    a.className="card";
+    a.href = `cancion.html?id=${t.id}`;
+    a.innerHTML = `
+      <div class="cover"></div>
+      <div class="label">${t.title}</div>
     `;
-    list.appendChild(row);
+    setBg(a.querySelector(".cover"), t.cover);
+    wrap.appendChild(a);
   });
 }
 
+/* =========================
+   TRACK
+========================= */
 function renderTrack(data){
-  const id = qs("id") || data.tracks[0].id;
+  const id = qs("id");
   const t = byId(data.tracks, id);
   if(!t) return;
 
   const a = byId(data.artists, t.artistId);
 
   $("#trackTitle").textContent = t.title;
-  $("#trackHeader").textContent = "CANCIÓN";
-  $("#trackAlbum").textContent = t.album || "";
   $("#trackArtistLine").textContent = a?.name || "";
-  $("#trackBlurb").textContent = t.blurb || "";
-  const coverEl = $("#trackCover");
+  $("#trackAlbum").textContent = t.album || "";
+  setBg($("#trackCover"), t.cover);
 
-if (coverEl && typeof t.cover === "string" && t.cover.trim() !== "") {
-  try {
-    // Convierte la ruta a URL absoluta (Safari-safe)
-    const coverUrl = new URL(t.cover.trim(), location.href).toString();
-    setBg(coverEl, coverUrl);
-  } catch (e) {
-    console.warn("Cover inválida:", t.cover, e);
-  }
-}
+  setExternalButtonState($("#btnSpotify"), t.spotifyUrl, "spotify");
+  setExternalButtonState($("#btnYtMusic"), t.ytMusicUrl, "ytmusic");
 
-  // ====== BOTONES EXTERNOS (AQUÍ ESTABA EL FALLO) ======
-  const btnSpotify = document.getElementById("btnSpotify");
-  const btnYtMusic = document.getElementById("btnYtMusic");
-
-  setExternalButtonState(btnSpotify, t.spotifyUrl, "spotify");
-  setExternalButtonState(btnYtMusic, t.ytMusicUrl, "ytmusic");
-  // ====================================================
-
-  // Previews: SIEMPRE 30s
-  const dur = PREVIEW_SECONDS;
-  $("#timeLeft").textContent = fmtTime(dur);
+  $("#timeLeft").textContent = "0:30";
   $("#timeNow").textContent = "0:00";
 
-  const hasPreview = typeof t.previewUrl === "string" && t.previewUrl.trim() !== "";
+  if(!t.previewUrl) return;
 
-let audio = null;
+  const audio = new Audio(encodeURI(t.previewUrl));
+  let playing=false;
 
-if (hasPreview) {
-  try {
-    // Safari-friendly: convierte a URL absoluta y válida sí o sí
-    const audioUrl = new URL(t.previewUrl.trim(), location.href).toString();
-    audio = new Audio(audioUrl);
-    audio.preload = "metadata";
-  } catch (e) {
-    console.warn("previewUrl inválido para", t.id, t.previewUrl, e);
-    audio = null;
-  }
-}
-if (!audio) {
-  console.warn("Track sin preview:", t.id);
-
-  // Desactiva controles
-  const btnPlay = $("#btnPlay");
-  if (btnPlay) {
-    btnPlay.classList.remove("is-pause");
-    btnPlay.classList.add("is-play");
-    btnPlay.setAttribute("aria-disabled", "true");
-    btnPlay.style.opacity = "0.4";
-    btnPlay.style.pointerEvents = "none";
-  }
-
-  return; // ⛔ CORTA renderTrack AQUÍ
-}
-  let playing = false;
-
-  const fill = $("#seekFill");
-  const dot = $("#seekDot");
-
-  function clampTime(){
-    if(audio.currentTime > dur){
-      audio.pause();
-      audio.currentTime = dur;
-      playing = false;
-      $("#btnPlay").textContent = "▶";
-    }
-  }
-
-  function updateUI(){
-    const cur = Math.min(audio.currentTime || 0, dur);
-    const pct = (cur / dur) * 100;
-    fill.style.width = `${pct}%`;
-    dot.style.left = `${pct}%`;
-    $("#timeNow").textContent = fmtTime(cur);
-  }
-
-  const btnPlay = $("#btnPlay");
-btnPlay.addEventListener("click", async () => {
-
-  if(!audio){
-    alert("Este tema no tiene preview disponible.");
-    return;
-  }
+  $("#btnPlay").onclick = async ()=>{
     if(!playing){
-      try{
-        if((audio.currentTime||0) >= dur) audio.currentTime = 0;
-        await audio.play();
-        playing = true;
-        btnPlay.textContent = "❚❚";
-      }catch{
-        // iOS: requiere gesto, ya lo hay
-      }
+      await audio.play();
+      playing=true;
+      $("#btnPlay").textContent="❚❚";
     }else{
       audio.pause();
-      playing = false;
-      btnPlay.textContent = "▶";
+      playing=false;
+      $("#btnPlay").textContent="▶";
     }
-  });
+  };
 
-  $("#btnBack").addEventListener("click", () => {
-    audio.currentTime = Math.max(0, (audio.currentTime||0) - 10);
-    updateUI();
-  });
+  audio.ontimeupdate=()=>{
+    const cur=Math.min(audio.currentTime,30);
+    $("#timeNow").textContent=fmtTime(cur);
+    const pct=(cur/30)*100;
+    $("#seekFill").style.width=pct+"%";
+    $("#seekDot").style.left=pct+"%";
+  };
 
-  $("#btnFwd").addEventListener("click", () => {
-    audio.currentTime = Math.min(dur, (audio.currentTime||0) + 10);
-    updateUI();
-  });
-
-  $("#seekBar").addEventListener("click", (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const pct = (e.clientX - rect.left) / rect.width;
-    audio.currentTime = Math.max(0, Math.min(dur, pct * dur));
-    updateUI();
-  });
-
-if(audio){
-  audio.addEventListener("timeupdate", () => { clampTime(); updateUI(); });
-  audio.addEventListener("ended", () => { playing = false; btnPlay.textContent = "▶"; });
+  audio.onended=()=>{
+    playing=false;
+    $("#btnPlay").textContent="▶";
+  };
 }
-}
-
-init().catch(err => {
-  console.error("INIT ERROR:", err);
-  alert(
-    "Error cargando la app.\n\n" +
-    (err?.message || String(err))
-  );
-});
