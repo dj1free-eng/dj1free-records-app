@@ -52,7 +52,58 @@
       <div class="hscroll" id="rowArtists"></div>
     </section>
   </main>
+<!-- =========================
+     MENÚ HAMBURGUESA (DRAWER)
+========================= -->
+<div id="menuScrim" class="menuScrim" hidden></div>
 
+<aside id="menuDrawer" class="menuDrawer" hidden aria-label="Menú principal">
+  <div class="menuHead">
+    <h2>Menú</h2>
+    <button id="btnMenuClose" class="btn ghost" type="button" aria-label="Cerrar menú">✕</button>
+  </div>
+
+  <nav class="menuNav">
+    <a href="#/" class="menuItem">Home</a>
+    <a href="#/albums" class="menuItem">Álbumes</a>
+    <a href="#/singles" class="menuItem">Singles</a>
+    <a href="#/artists" class="menuItem">Artistas</a>
+  </nav>
+
+  <hr class="menuSep">
+
+  <!-- ===== SKINS ===== -->
+  <button id="btnSkin" class="btn primary" type="button" aria-expanded="false">
+    Cambiar skin
+  </button>
+
+  <div id="skinPanel" class="skinPanel" hidden>
+    <div id="skinList" class="skinList"></div>
+  </div>
+</aside>
+
+<!-- =========================
+     MODAL PREVIEW SKIN
+========================= -->
+<div id="skinModal" class="skinModal" hidden>
+  <div class="skinModalScrim" id="skinModalScrim"></div>
+
+  <div class="skinModalBox" role="dialog" aria-modal="true">
+    <div class="skinModalHead">
+      <div id="skinModalTitle" class="skinModalTitle">—</div>
+      <button id="skinModalClose" class="btn ghost" type="button">✕</button>
+    </div>
+
+    <div class="skinModalPreview">
+      <img id="skinModalImg" alt="Vista previa del skin">
+    </div>
+
+    <div class="skinModalActions">
+      <button id="skinApply" class="btn primary">Aplicar</button>
+      <button id="skinCancel" class="btn">Cancelar</button>
+    </div>
+  </div>
+</div>
   <script src="js/app.js"></script>
 </body>
 </html>
